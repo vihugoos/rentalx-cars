@@ -1,0 +1,24 @@
+>> Commands of the project. 
+
+yarn init -y
+
+yarn add express
+
+yarn add @types/express -D
+
+yarn add typescript -D
+
+yarn tsc --init
+
+yarn tsc 
+
+yarn add eslint@^7.21.0 -D
+
+yarn eslint --init  (do the config manually)
+
+yarn add -D eslint-plugin-import-helpers eslint-import-resolver-typescript
+
+yarn add prettier eslint-config-prettier eslint-plugin-prettier -D
+
+yarn add ts-node-dev -D 
+
