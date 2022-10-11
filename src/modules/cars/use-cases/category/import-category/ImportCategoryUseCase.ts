@@ -16,6 +16,7 @@ class ImportCategoryUseCase {
         private categoriesRepository: ICategoriesRepository
     ) {}
 
+    // example: SUV,Sports Utility
     loadCategories(file: Express.Multer.File): Promise<IImportCategory[]> {
         return new Promise((resolve, reject) => {
             const categories: IImportCategory[] = [];
