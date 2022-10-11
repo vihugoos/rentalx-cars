@@ -1,4 +1,4 @@
-import { Category } from "../infra/typeorm/entities/Category";
+import { ICategory } from "../entities/ICategory";
 
 interface ICreateCategoryDTO {
     name: string;
@@ -7,8 +7,8 @@ interface ICreateCategoryDTO {
 
 interface ICategoriesRepository {
     create({ name, description }: ICreateCategoryDTO): Promise<void>;
-    list(): Promise<Category[]>;
-    findByName(name: string): Promise<Category>;
+    list(): Promise<ICategory[]>;
+    findByName(name: string): Promise<ICategory>;
 }
 
 export { ICategoriesRepository, ICreateCategoryDTO };
