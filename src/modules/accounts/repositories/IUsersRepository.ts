@@ -1,10 +1,10 @@
 import { ICreateUserDTO } from "../dtos/ICreateUserDTO";
-import { User } from "../infra/typeorm/entities/User";
+import { IUser } from "../entities/IUser";
 
 interface IUsersRepository {
     create(data: ICreateUserDTO): Promise<void>;
-    findByEmail(email: string): Promise<User>;
-    findById(id: string): Promise<User>;
+    findByEmail(email: string): Promise<IUser>;
+    findById(id: string): Promise<IUser>;
 }
 
 export { IUsersRepository };
