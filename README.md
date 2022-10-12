@@ -63,7 +63,7 @@ Application developed for car rental.
 ---
 
 
-### Car Image Registration
+### Car Rental 
 
 **RF** (<i>Functional Requirements</i>
 - It must be possible to register a rental. 
