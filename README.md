@@ -32,7 +32,7 @@ Application developed for car rental.
 ---
 
 
-### Car Specification Record 
+### Car Specification Registration 
 
 **RF** (<i>Functional Requirements</i>)
 - It must be possible to register a specification for a car.
