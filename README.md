@@ -1,8 +1,8 @@
-# RentX Cars - Requirements Documentation. 
+## RentX Cars - Requirements Documentation. 
 
 Application developed for car rental. 
 
-<h2> Cars Registration </h2>
+### Cars Registration 
 
 **RF** (<i>Functional Requirements</i>)
 - It must be possible registration a new car.
@@ -15,7 +15,7 @@ Application developed for car rental.
 - The user responsible for the registration must be an administrator user. 
 
 
-<h2> Car Listing </h2>
+### Car Listing 
 
 **RF** (<i>Functional Requirements</i>)
 - It must be possible to list <strong>available</strong> cars. 
@@ -27,7 +27,7 @@ Application developed for car rental.
 - The user does not need to be logged into the system.
 
 
-<h2> Car Specification Record </h2> 
+### Car Specification Record 
 
 **RF** (<i>Functional Requirements</i>)
 - It must be possible to register a specification for a car.
