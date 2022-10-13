@@ -26,9 +26,11 @@ app.use(
             });
         }
 
+        console.log("\nInternal Server Error (500):", err);
+
         return response.status(500).json({
-            status: "error",
-            message: `Internal server error - ${err.message}`,
+            status: "Error",
+            message: `Internal Server Error - ${err.message}`,
         });
     }
 );
