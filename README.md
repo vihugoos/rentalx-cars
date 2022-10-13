@@ -7,7 +7,6 @@ Application developed for car rental.
 
 **RF** (<i>Functional Requirements</i>)
 - It must be possible registration a new car.
-- It must be possible to list all categories. 
 
 **RN** (<i>Business Rules</i>)
 - It must not be possible to register a car with an existing license plate.
