@@ -1,9 +1,5 @@
+import { ICreateSpecificationDTO } from "@modules/cars/dtos/ICreateSpecificationDTO";
 import { ISpecification } from "@modules/cars/entities/ISpecification";
-
-interface ICreateSpecificationDTO {
-    name: string;
-    description: string;
-}
 
 interface ISpecificationsRepository {
     create({ name, description }: ICreateSpecificationDTO): Promise<void>;
