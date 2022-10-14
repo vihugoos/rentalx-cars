@@ -1,4 +1,4 @@
-import { ISpecification } from "../entities/ISpecification";
+import { ISpecification } from "@modules/cars/entities/ISpecification";
 
 interface ICreateSpecificationDTO {
     name: string;
