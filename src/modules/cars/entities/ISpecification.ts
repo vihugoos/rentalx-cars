@@ -1,5 +1,5 @@
 interface ISpecification {
-    id?: string;
+    id: string;
     name: string;
     description: string;
     created_at: Date;

@@ -6,7 +6,7 @@ import { ICategory } from "@modules/cars/entities/ICategory";
 @Entity("categories")
 class Category implements ICategory {
     @PrimaryColumn()
-    id?: string;
+    id: string;
 
     @Column()
     name: string;
@@ -18,9 +18,7 @@ class Category implements ICategory {
     created_at: Date;
 
     constructor() {
-        if (!this.id) {
-            this.id = uuidV4();
-        }
+        this.id = uuidV4();
     }
 }
 

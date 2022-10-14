@@ -6,7 +6,7 @@ import { ISpecification } from "@modules/cars/entities/ISpecification";
 @Entity("specifications")
 class Specification implements ISpecification {
     @PrimaryColumn()
-    id?: string;
+    id: string;
 
     @Column()
     name: string;
@@ -18,9 +18,7 @@ class Specification implements ISpecification {
     created_at: Date;
 
     constructor() {
-        if (!this.id) {
-            this.id = uuidV4();
-        }
+        this.id = uuidV4();
     }
 }
 
