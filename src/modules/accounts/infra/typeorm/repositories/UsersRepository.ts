@@ -12,7 +12,6 @@ class UsersRepository implements IUsersRepository {
     }
 
     async create({
-        id,
         avatar,
         name,
         password,
@@ -20,7 +19,6 @@ class UsersRepository implements IUsersRepository {
         driver_license,
     }: ICreateUserDTO): Promise<void> {
         const user = this.repository.create({
-            id,
             avatar,
             name,
             password,
@@ -41,6 +39,14 @@ class UsersRepository implements IUsersRepository {
         const user = await this.repository.findOne(id);
 
         return user;
+    }
+
+    async updateUserAvatar(id: string, avatar_file: string): Promise<void> {
+        const user = await this.repository.findOne(id);
+
+        user.avatar = avatar_file;
+
+        await this.repository.save(user);
     }
 }
 
