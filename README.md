@@ -52,7 +52,7 @@ Application developed for car rental.
 - It must be possible to register car image. 
 - It must be possible to list all cars. 
 
-**RNF** (<i>Non-functional requeriments</i>)
+**RNF** (<i>Non-functional requirements</i>)
 - Use the multer library to upload the files. 
 
 **RN** (<i>Business Rules</i>)
