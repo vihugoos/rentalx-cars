@@ -4,7 +4,7 @@ interface IUser {
     email: string;
     password: string;
     driver_license: string;
-    isAdmin: boolean;
+    admin: boolean;
     avatar: string;
     created_at: Date;
 }

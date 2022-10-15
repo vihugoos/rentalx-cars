@@ -1,7 +1,7 @@
 import { hash } from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 
-import createConnection from "@shared/infra/typeorm/index";
+import createConnection from "../index";
 
 async function createAdmin() {
     const connection = await createConnection("localhost");
@@ -10,7 +10,7 @@ async function createAdmin() {
     const password = await hash("admin", 8);
 
     await connection.query(
-        `INSERT INTO USERS(id, name, email, password, driver_license, "isAdmin", created_at)
+        `INSERT INTO USERS(id, name, email, password, driver_license, "admin", created_at)
             values('${id}', 'admin', 'admin@rentx.com', '${password}', 'XXX-XXX', true, 'now()')
         `
     );
