@@ -1,7 +1,6 @@
 import { getRepository, Repository } from "typeorm";
 
 import { ICreateCarDTO } from "@modules/cars/dtos/ICreateCarDTO";
-import { IFilterListCarsDTO } from "@modules/cars/dtos/IFilterListCarsDTO";
 import { ICar } from "@modules/cars/entities/ICar";
 import { Car } from "@modules/cars/infra/typeorm/entities/Car";
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
@@ -41,10 +40,10 @@ class CarsRepository implements ICarsRepository {
         return this.repository.findOne({ license_plate });
     }
 
-    async findAllAvailable({
-        type_filter,
-        value,
-    }: IFilterListCarsDTO): Promise<ICar[]> {
+    async findAllAvailable(
+        type_filter: string,
+        value: string
+    ): Promise<ICar[]> {
         const carsQuery = this.repository
             .createQueryBuilder("cars")
             .where("available = :available", { available: true });
