@@ -1,7 +1,6 @@
 import { getRepository, Repository } from "typeorm";
 
 import { ICreateCarDTO } from "@modules/cars/dtos/ICreateCarDTO";
-import { ICar } from "@modules/cars/entities/ICar";
 import { Car } from "@modules/cars/infra/typeorm/entities/Car";
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 
@@ -36,14 +35,15 @@ class CarsRepository implements ICarsRepository {
         return car;
     }
 
+    async findById(id: string): Promise<Car> {
+        return this.repository.findOne(id);
+    }
+
     async findByLicensePlate(license_plate: string): Promise<Car> {
         return this.repository.findOne({ license_plate });
     }
 
-    async findAllAvailable(
-        type_filter: string,
-        value: string
-    ): Promise<ICar[]> {
+    async findAllAvailable(type_filter: string, value: string): Promise<Car[]> {
         const carsQuery = this.repository
             .createQueryBuilder("cars")
             .where("available = :available", { available: true });
@@ -67,6 +67,10 @@ class CarsRepository implements ICarsRepository {
         const carsAvailable = await carsQuery.getMany();
 
         return carsAvailable;
+    }
+
+    async createCarSpecification(car: Car): Promise<Car> {
+        return this.repository.save(car);
     }
 }
 
