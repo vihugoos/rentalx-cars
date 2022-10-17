@@ -40,6 +40,7 @@ Application developed for car rental.
 **RN** (<i>Business Rules</i>)
 - It must not be possible to register a specification for an unregistered car. 
 - It must not be possible to register an existing specification for the same car. 
+- The user responsible for the registration must be an administrator user.
 
 ---
 
