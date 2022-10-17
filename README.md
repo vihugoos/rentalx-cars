@@ -35,7 +35,6 @@ Application developed for car rental.
 
 **RF** (<i>Functional Requirements</i>)
 - It must be possible to register a specification for a car.
-- The user responsible for the registration must be an administrator user.
 
 **RN** (<i>Business Rules</i>)
 - It must not be possible to register a specification for an unregistered car. 
@@ -49,7 +48,6 @@ Application developed for car rental.
 
 **RF** (<i>Functional Requirements</i>)
 - It must be possible to register car image. 
-- It must be possible to list all cars. 
 
 **RNF** (<i>Non-functional requirements</i>)
 - Use the multer library to upload the files. 
