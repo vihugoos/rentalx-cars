@@ -35,8 +35,6 @@ Application developed for car rental.
 
 **RF** (<i>Functional Requirements</i>)
 - It must be possible to register a specification for a car.
-- It must be possible to list all specifications. 
-- It must be possible to list all cars. 
 - The user responsible for the registration must be an administrator user.
 
 **RN** (<i>Business Rules</i>)
