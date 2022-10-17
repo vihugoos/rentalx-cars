@@ -1,3 +1,5 @@
+import { ISpecification } from "./ISpecification";
+
 interface ICar {
     id: string;
     name: string;
@@ -8,6 +10,7 @@ interface ICar {
     fine_amount: number;
     brand: string;
     category_id: string;
+    specifications: ISpecification[];
     created_at: Date;
 }
 
