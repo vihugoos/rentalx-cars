@@ -69,7 +69,7 @@ class CarsRepository implements ICarsRepository {
         return carsAvailable;
     }
 
-    async createCarSpecification(car: Car): Promise<Car> {
+    async createCarSpecifications(car: Car): Promise<Car> {
         return this.repository.save(car);
     }
 }

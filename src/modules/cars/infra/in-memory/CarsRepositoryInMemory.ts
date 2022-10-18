@@ -65,7 +65,7 @@ class CarsRepositoryInMemory implements ICarsRepository {
         return carsAvailable;
     }
 
-    async createCarSpecification(car: Car): Promise<Car> {
+    async createCarSpecifications(car: Car): Promise<Car> {
         this.cars.push(car);
 
         return car;

@@ -1,18 +1,18 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 
-import { CreateCarSpecificationUseCase } from "./CreateCarSpecificationUseCase";
+import { CreateCarSpecificationsUseCase } from "./CreateCarSpecificationsUseCase";
 
-class CreateCarSpecificationController {
+class CreateCarSpecificationsController {
     async handle(request: Request, response: Response): Promise<Response> {
         const { car_id } = request.params;
         const { specifications_id } = request.body;
 
-        const createCarSpecificationUseCase = container.resolve(
-            CreateCarSpecificationUseCase
+        const createCarSpecificationsUseCase = container.resolve(
+            CreateCarSpecificationsUseCase
         );
 
-        const carSpecifications = await createCarSpecificationUseCase.execute({
+        const carSpecifications = await createCarSpecificationsUseCase.execute({
             car_id,
             specifications_id,
         });
@@ -21,4 +21,4 @@ class CreateCarSpecificationController {
     }
 }
 
-export { CreateCarSpecificationController };
+export { CreateCarSpecificationsController };

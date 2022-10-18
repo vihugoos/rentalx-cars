@@ -2,9 +2,9 @@ import { CarsRepositoryInMemory } from "@modules/cars/infra/in-memory/CarsReposi
 import { SpecificationsRepositoryInMemory } from "@modules/cars/infra/in-memory/SpecificationsRepositoryInMemory";
 import { AppError } from "@shared/errors/AppError";
 
-import { CreateCarSpecificationUseCase } from "./CreateCarSpecificationUseCase";
+import { CreateCarSpecificationsUseCase } from "./CreateCarSpecificationsUseCase";
 
-let createCarSpecificationUseCase: CreateCarSpecificationUseCase;
+let createCarSpecificationsUseCase: CreateCarSpecificationsUseCase;
 let carsRepositoryInMemory: CarsRepositoryInMemory;
 let specificationsRepositoryInMemory: SpecificationsRepositoryInMemory;
 
@@ -13,7 +13,7 @@ describe("Create car specification", () => {
         carsRepositoryInMemory = new CarsRepositoryInMemory();
         specificationsRepositoryInMemory =
             new SpecificationsRepositoryInMemory();
-        createCarSpecificationUseCase = new CreateCarSpecificationUseCase(
+        createCarSpecificationsUseCase = new CreateCarSpecificationsUseCase(
             carsRepositoryInMemory,
             specificationsRepositoryInMemory
         );
@@ -35,10 +35,12 @@ describe("Create car specification", () => {
             description: "Description Test",
         });
 
-        const specificationsCars = await createCarSpecificationUseCase.execute({
-            car_id: car.id,
-            specifications_id: [specification.id],
-        });
+        const specificationsCars = await createCarSpecificationsUseCase.execute(
+            {
+                car_id: car.id,
+                specifications_id: [specification.id],
+            }
+        );
 
         expect(specificationsCars).toHaveProperty("specifications");
         expect(specificationsCars.specifications.length).toBe(1);
@@ -46,7 +48,7 @@ describe("Create car specification", () => {
 
     it("Should not be able to add a new specification to a non-existent car ", async () => {
         expect(async () => {
-            await createCarSpecificationUseCase.execute({
+            await createCarSpecificationsUseCase.execute({
                 car_id: "car_id_error",
                 specifications_id: [],
             });
