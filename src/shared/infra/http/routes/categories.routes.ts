@@ -2,7 +2,7 @@ import { Router } from "express";
 import multer from "multer";
 
 import { CreateCategoryController } from "@modules/cars/use-cases/category/create-category/CreateCategoryController";
-import { ImportCategoryController } from "@modules/cars/use-cases/category/import-category/ImportCategoryController";
+import { ImportCategoriesController } from "@modules/cars/use-cases/category/import-categories/ImportCategoriesController";
 import { ListCategoriesController } from "@modules/cars/use-cases/category/list-categories/ListCategoriesController";
 import { ensureAdmin } from "@shared/infra/http/middlewares/ensureAdmin";
 import { ensureAuthenticated } from "@shared/infra/http/middlewares/ensureAuthenticated";
@@ -15,7 +15,7 @@ const fileUpload = multer({
 
 const createCategoryController = new CreateCategoryController();
 const listCategoriesController = new ListCategoriesController();
-const importCategoryController = new ImportCategoryController();
+const importCategoriesController = new ImportCategoriesController();
 
 // Route to create a new category of cars
 categoriesRoutes.post(
@@ -34,7 +34,7 @@ categoriesRoutes.post(
     fileUpload.single("file"),
     ensureAuthenticated,
     ensureAdmin,
-    importCategoryController.handle
+    importCategoriesController.handle
 );
 
 export { categoriesRoutes };

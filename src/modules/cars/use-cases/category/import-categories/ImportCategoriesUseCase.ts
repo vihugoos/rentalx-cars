@@ -10,7 +10,7 @@ interface IImportCategory {
 }
 
 @injectable()
-class ImportCategoryUseCase {
+class ImportCategoriesUseCase {
     constructor(
         @inject("CategoriesRepository")
         private categoriesRepository: ICategoriesRepository
@@ -61,4 +61,4 @@ class ImportCategoryUseCase {
     }
 }
 
-export { ImportCategoryUseCase };
+export { ImportCategoriesUseCase };
