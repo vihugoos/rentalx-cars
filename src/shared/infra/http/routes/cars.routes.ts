@@ -11,12 +11,6 @@ import { ensureAuthenticated } from "@shared/infra/http/middlewares/ensureAuthen
 
 const carsRoutes = Router();
 
-const createCarController = new CreateCarController();
-const listAvailableCarsController = new ListAvailableCarsController();
-const createCarSpecificationController =
-    new CreateCarSpecificationsController();
-const uploadCarImagesController = new UploadCarImagesController();
-
 const upload = multer(uploadConfig.upload("./tmp/cars"));
 
 // Route to create a new car
@@ -24,18 +18,18 @@ carsRoutes.post(
     "/",
     ensureAuthenticated,
     ensureAdmin,
-    createCarController.handle
+    new CreateCarController().handle
 );
 
 // Route to return all available cars
-carsRoutes.get("/available", listAvailableCarsController.handle);
+carsRoutes.get("/available", new ListAvailableCarsController().handle);
 
 // Route to create a new specification to the car
 carsRoutes.post(
     "/specifications/:car_id",
     ensureAuthenticated,
     ensureAdmin,
-    createCarSpecificationController.handle
+    new CreateCarSpecificationsController().handle
 );
 
 // Routes to create imagens to cars
@@ -44,7 +38,7 @@ carsRoutes.post(
     ensureAuthenticated,
     ensureAdmin,
     upload.array("images"),
-    uploadCarImagesController.handle
+    new UploadCarImagesController().handle
 );
 
 export { carsRoutes };

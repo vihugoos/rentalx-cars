@@ -13,20 +13,16 @@ const fileUpload = multer({
     dest: "./tmp",
 });
 
-const createCategoryController = new CreateCategoryController();
-const listCategoriesController = new ListCategoriesController();
-const importCategoriesController = new ImportCategoriesController();
-
 // Route to create a new category of cars
 categoriesRoutes.post(
     "/",
     ensureAuthenticated,
     ensureAdmin,
-    createCategoryController.handle
+    new CreateCategoryController().handle
 );
 
 // Route to return all categories
-categoriesRoutes.get("/", listCategoriesController.handle);
+categoriesRoutes.get("/", new ListCategoriesController().handle);
 
 // Route to import car categories file
 categoriesRoutes.post(
@@ -34,7 +30,7 @@ categoriesRoutes.post(
     fileUpload.single("file"),
     ensureAuthenticated,
     ensureAdmin,
-    importCategoriesController.handle
+    new ImportCategoriesController().handle
 );
 
 export { categoriesRoutes };

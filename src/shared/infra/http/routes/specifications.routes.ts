@@ -6,14 +6,12 @@ import { ensureAuthenticated } from "@shared/infra/http/middlewares/ensureAuthen
 
 const specificationsRoutes = Router();
 
-const createSpecificationController = new CreateSpecificationController();
-
 // Route to create a new specification
 specificationsRoutes.post(
     "/",
     ensureAuthenticated,
     ensureAdmin,
-    createSpecificationController.handle
+    new CreateSpecificationController().handle
 );
 
 export { specificationsRoutes };
