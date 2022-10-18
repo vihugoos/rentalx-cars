@@ -30,9 +30,7 @@ class CarsRepository implements ICarsRepository {
             category_id,
         });
 
-        await this.repository.save(car);
-
-        return car;
+        return this.repository.save(car);
     }
 
     async findById(id: string): Promise<Car> {
