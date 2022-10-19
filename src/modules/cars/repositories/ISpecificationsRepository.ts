@@ -2,10 +2,7 @@ import { ICreateSpecificationDTO } from "@modules/cars/dtos/ICreateSpecification
 import { ISpecification } from "@modules/cars/entities/ISpecification";
 
 interface ISpecificationsRepository {
-    create({
-        name,
-        description,
-    }: ICreateSpecificationDTO): Promise<ISpecification>;
+    create(data: ICreateSpecificationDTO): Promise<ISpecification>;
     findByName(name: string): Promise<ISpecification>;
     findByIds(ids: string[]): Promise<ISpecification[]>;
 }
