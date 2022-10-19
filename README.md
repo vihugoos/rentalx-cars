@@ -66,3 +66,4 @@ Application developed for car rental.
 - The rental must have a minimum duration of 24 hours. 
 - It must not be possible to register a new rental if it's already open for the same user. 
 - It must not be possible to register a new rental if it's already open for the same car. 
+- The user must be logged into the application.
