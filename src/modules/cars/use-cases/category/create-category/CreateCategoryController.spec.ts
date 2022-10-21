@@ -47,5 +47,7 @@ describe("Create Category Controller", () => {
             });
 
         expect(response.status).toBe(201);
+        expect(response.body.name).toEqual("Category Supertest");
+        expect(response.body.description).toEqual("Category Supertest");
     });
 });
