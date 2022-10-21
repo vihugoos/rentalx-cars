@@ -10,5 +10,7 @@ export default {
         prefix: "<rootDir>/src/",
     }),
     preset: "ts-jest",
+    setupFilesAfterEnv: ["<rootDir>/setupTest.ts"],
     testMatch: ["**/*.spec.ts"],
+    // verbose: true,
 };

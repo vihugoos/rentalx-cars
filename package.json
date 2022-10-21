@@ -4,9 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --poll --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
-    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli",
-    "test": "NODE_ENV=test jest",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect=0.0.0.0:9229 --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
+    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "test": "NODE_ENV=test jest --detectOpenHandles",
     "seed:admin": "ts-node-dev src/shared/infra/typeorm/seed/admin.ts"
   },
   "dependencies": {
@@ -19,11 +19,11 @@
     "multer": "^1.4.5-lts.1",
     "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",
+    "supertest": "^6.3.0",
     "swagger-ui-express": "^4.5.0",
     "tsyringe": "^4.7.0",
     "typeorm": "0.2.45",
-    "uuid": "^9.0.0",
-    "supertest": "^6.3.0"
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
