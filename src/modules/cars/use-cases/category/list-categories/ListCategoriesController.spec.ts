@@ -58,17 +58,6 @@ describe("List Categories Controller", () => {
                 Authorization: `Bearer ${token}`,
             });
 
-        // Create Category 3
-        await request(app)
-            .post("/categories")
-            .send({
-                name: "Category 3",
-                description: "Category 3",
-            })
-            .set({
-                Authorization: `Bearer ${token}`,
-            });
-
         // Get categories
         const response = await request(app).get("/categories");
 
