@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
+import { IUser } from "@modules/accounts/entities/IUser";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { deleteFile } from "@utils/delete-file";
 
@@ -15,14 +16,19 @@ class UpdateUserAvatarUseCase {
         private usersRepository: IUsersRepository
     ) {}
 
-    async execute({ user_id, avatar_file }: IRequest): Promise<void> {
+    async execute({ user_id, avatar_file }: IRequest): Promise<IUser> {
         const user = await this.usersRepository.findById(user_id);
 
         if (user.avatar) {
             await deleteFile(`./tmp/avatar/${user.avatar}`);
         }
 
-        await this.usersRepository.updateUserAvatar(user_id, avatar_file);
+        const userWithAvatar = await this.usersRepository.updateUserAvatar(
+            user_id,
+            avatar_file
+        );
+
+        return userWithAvatar;
     }
 }
 
