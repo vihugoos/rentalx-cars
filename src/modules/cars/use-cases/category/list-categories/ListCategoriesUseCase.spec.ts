@@ -32,5 +32,7 @@ describe("List Categories Use Case", () => {
         const categories = await listCategoriesUseCase.execute();
 
         expect(categories.length).toEqual(2);
+        expect(categories[0].name).toEqual("Category 1");
+        expect(categories[1].name).toEqual("Category 2");
     });
 });
