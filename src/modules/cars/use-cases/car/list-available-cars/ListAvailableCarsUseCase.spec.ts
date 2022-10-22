@@ -1,20 +1,23 @@
 import { CarsRepositoryInMemory } from "@modules/cars/infra/in-memory/CarsRepositoryInMemory";
+import { CreateCarUseCase } from "@modules/cars/use-cases/car/create-car/CreateCarUseCase";
 import { ListAvailableCarsUseCase } from "@modules/cars/use-cases/car/list-available-cars/ListAvailableCarsUseCase";
 import { AppError } from "@shared/errors/AppError";
 
 let carsRepositoryInMemory: CarsRepositoryInMemory;
+let createCarUseCase: CreateCarUseCase;
 let listAvailableCarsUseCase: ListAvailableCarsUseCase;
 
-describe("List Cars", () => {
+describe("List Available Cars Use Case", () => {
     beforeEach(() => {
         carsRepositoryInMemory = new CarsRepositoryInMemory();
+        createCarUseCase = new CreateCarUseCase(carsRepositoryInMemory);
         listAvailableCarsUseCase = new ListAvailableCarsUseCase(
             carsRepositoryInMemory
         );
     });
 
     it("Should be able to list all available cars", async () => {
-        const car = await carsRepositoryInMemory.create({
+        const car = await createCarUseCase.execute({
             name: "Car Test",
             description: "Car description",
             daily_rate: 10,
@@ -30,7 +33,7 @@ describe("List Cars", () => {
     });
 
     it("Should be able to list all available cars by name", async () => {
-        await carsRepositoryInMemory.create({
+        await createCarUseCase.execute({
             name: "Ferrari SF90 Spider",
             description: "Luxury sports",
             daily_rate: 800,
@@ -40,7 +43,7 @@ describe("List Cars", () => {
             category_id: "category_id",
         });
 
-        await carsRepositoryInMemory.create({
+        await createCarUseCase.execute({
             name: "Lamborghini Aventador",
             description: "Luxury sports",
             daily_rate: 600,
@@ -59,7 +62,7 @@ describe("List Cars", () => {
     });
 
     it("Should be able to list all available cars by brand", async () => {
-        await carsRepositoryInMemory.create({
+        await createCarUseCase.execute({
             name: "Aston Martin Vantage",
             description: "Luxury sports",
             daily_rate: 500,
@@ -69,7 +72,7 @@ describe("List Cars", () => {
             category_id: "category_id",
         });
 
-        await carsRepositoryInMemory.create({
+        await createCarUseCase.execute({
             name: "BMW X6",
             description: "Luxury SUV",
             daily_rate: 250,
@@ -88,7 +91,7 @@ describe("List Cars", () => {
     });
 
     it("Should be able to list all available cars by category", async () => {
-        await carsRepositoryInMemory.create({
+        await createCarUseCase.execute({
             name: "Ferrari 488 Spider",
             description: "Luxury sports",
             daily_rate: 900,
@@ -98,7 +101,7 @@ describe("List Cars", () => {
             category_id: "18bae658-4af3-46bb-bd08-fc31f210da7b",
         });
 
-        await carsRepositoryInMemory.create({
+        await createCarUseCase.execute({
             name: "Porsche Cayenne",
             description: "Luxury SUV",
             daily_rate: 300,

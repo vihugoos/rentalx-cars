@@ -23,12 +23,12 @@ class ListAvailableCarsUseCase {
             throw new AppError("Invalid type filter!");
         }
 
-        const cars = await this.carsRepository.findAllAvailable(
+        const listCarsAvailable = await this.carsRepository.findAllAvailable(
             type_filter,
             value
         );
 
-        return cars;
+        return listCarsAvailable;
     }
 }
 
