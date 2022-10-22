@@ -7,7 +7,7 @@ import { AppError } from "@shared/errors/AppError";
 
 interface IRequest {
     car_id: string;
-    specifications_id: string[];
+    list_specifications_ids: string[];
 }
 
 @injectable()
@@ -20,18 +20,22 @@ class CreateCarSpecificationsUseCase {
         private specificationsRepository: ISpecificationsRepository
     ) {}
 
-    async execute({ car_id, specifications_id }: IRequest): Promise<ICar> {
+    async execute({
+        car_id,
+        list_specifications_ids,
+    }: IRequest): Promise<ICar> {
         const car = await this.carsRepository.findById(car_id);
 
         if (!car) {
             throw new AppError("Car does not exists!");
         }
 
-        const specifications = await this.specificationsRepository.findByIds(
-            specifications_id
-        );
+        const listSpecifications =
+            await this.specificationsRepository.findByIds(
+                list_specifications_ids
+            );
 
-        car.specifications = specifications;
+        car.specifications = listSpecifications;
 
         return this.carsRepository.createCarSpecifications(car);
     }
