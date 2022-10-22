@@ -5,7 +5,7 @@ import { deleteFile } from "@utils/delete-file";
 
 interface IRequest {
     car_id: string;
-    images_name: string[];
+    list_images_name: string[];
 }
 
 @injectable()
@@ -15,7 +15,7 @@ class UploadCarImagesUseCase {
         private carsImagesRepository: ICarsImagesRepository
     ) {}
 
-    async execute({ car_id, images_name }: IRequest): Promise<void> {
+    async execute({ car_id, list_images_name }: IRequest): Promise<void> {
         // Delete car images from temp directory
         await this.carsImagesRepository
             .filterImagesByCarId(car_id)
@@ -30,7 +30,7 @@ class UploadCarImagesUseCase {
         // Delete car images from database
         await this.carsImagesRepository.deleteImagesByCarId(car_id);
 
-        images_name.map(async (image) => {
+        list_images_name.map(async (image) => {
             await this.carsImagesRepository.create(car_id, image);
         });
     }
