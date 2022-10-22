@@ -26,9 +26,9 @@ class CarsImagesRepository implements ICarsImagesRepository {
             .createQueryBuilder("cars_image")
             .where("car_id = :car_id", { car_id: id });
 
-        const carsImages = await carImagesQuery.getMany();
+        const listCarImages = await carImagesQuery.getMany();
 
-        return carsImages;
+        return listCarImages;
     }
 
     async deleteImagesByCarId(id: string): Promise<void> {
