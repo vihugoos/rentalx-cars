@@ -40,29 +40,29 @@ class CarsRepositoryInMemory implements ICarsRepository {
     }
 
     async findAllAvailable(type_filter: string, value: string): Promise<Car[]> {
-        let carsAvailable = this.cars.filter((car) => car.available);
+        let listCarsAvailable = this.cars.filter((car) => car.available);
 
         if (type_filter) {
             if (type_filter === "name") {
-                carsAvailable = carsAvailable.filter(
+                listCarsAvailable = listCarsAvailable.filter(
                     (car) => car.name === value
                 );
             }
 
             if (type_filter === "brand") {
-                carsAvailable = carsAvailable.filter(
+                listCarsAvailable = listCarsAvailable.filter(
                     (car) => car.brand === value
                 );
             }
 
             if (type_filter === "category_id") {
-                carsAvailable = carsAvailable.filter(
+                listCarsAvailable = listCarsAvailable.filter(
                     (car) => car.category_id === value
                 );
             }
         }
 
-        return carsAvailable;
+        return listCarsAvailable;
     }
 
     async createCarSpecifications(car: Car): Promise<Car> {
