@@ -33,12 +33,14 @@ class UsersRepositoryInMemory implements IUsersRepository {
         return this.users.find((user) => user.id === id);
     }
 
-    async updateUserAvatar(id: string, avatar_file: string): Promise<void> {
+    async updateUserAvatar(id: string, avatar_file: string): Promise<User> {
         const user = this.users.find((user) => user.id === id);
 
         user.avatar = avatar_file;
 
         this.users.push(user);
+
+        return user;
     }
 }
 

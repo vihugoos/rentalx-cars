@@ -41,12 +41,14 @@ class UsersRepository implements IUsersRepository {
         return user;
     }
 
-    async updateUserAvatar(id: string, avatar_file: string): Promise<void> {
+    async updateUserAvatar(id: string, avatar_file: string): Promise<User> {
         const user = await this.repository.findOne(id);
 
         user.avatar = avatar_file;
 
-        await this.repository.save(user);
+        const userWithAvatar = await this.repository.save(user);
+
+        return userWithAvatar;
     }
 }
 
