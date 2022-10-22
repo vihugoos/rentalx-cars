@@ -20,7 +20,7 @@ class CarsRepository implements ICarsRepository {
         brand,
         category_id,
     }: ICreateCarDTO): Promise<Car> {
-        const car = this.repository.create({
+        const newCar = this.repository.create({
             name,
             description,
             daily_rate,
@@ -30,7 +30,9 @@ class CarsRepository implements ICarsRepository {
             category_id,
         });
 
-        return this.repository.save(car);
+        const car = await this.repository.save(newCar);
+
+        return car;
     }
 
     async findById(id: string): Promise<Car> {
@@ -42,29 +44,33 @@ class CarsRepository implements ICarsRepository {
     }
 
     async findAllAvailable(type_filter: string, value: string): Promise<Car[]> {
-        const carsQuery = this.repository
+        const carsAvailableQuery = this.repository
             .createQueryBuilder("cars")
             .where("available = :available", { available: true });
 
         if (type_filter) {
             if (type_filter === "name") {
-                carsQuery.andWhere("cars.name = :name", { name: value });
+                carsAvailableQuery.andWhere("cars.name = :name", {
+                    name: value,
+                });
             }
 
             if (type_filter === "brand") {
-                carsQuery.andWhere("cars.brand = :brand", { brand: value });
+                carsAvailableQuery.andWhere("cars.brand = :brand", {
+                    brand: value,
+                });
             }
 
             if (type_filter === "category_id") {
-                carsQuery.andWhere("cars.category_id = :category_id", {
+                carsAvailableQuery.andWhere("cars.category_id = :category_id", {
                     category_id: value,
                 });
             }
         }
 
-        const carsAvailable = await carsQuery.getMany();
+        const listCarsAvailable = await carsAvailableQuery.getMany();
 
-        return carsAvailable;
+        return listCarsAvailable;
     }
 
     async createCarSpecifications(car: Car): Promise<Car> {
