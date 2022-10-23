@@ -19,7 +19,7 @@ describe("Create Car Specification Use Case", () => {
         );
     });
 
-    it("Should be able to add a new specification to the car", async () => {
+    it("Should be able to add a new specifications to the car", async () => {
         const car = await carsRepositoryInMemory.create({
             name: "Name Car",
             description: "Description Car",
