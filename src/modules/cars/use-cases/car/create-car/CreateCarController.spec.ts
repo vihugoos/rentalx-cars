@@ -14,6 +14,7 @@ let connection: Connection;
 describe("Create Car Controller", () => {
     beforeAll(async () => {
         connection = await createConnection();
+        await connection.dropDatabase();
         await connection.runMigrations();
 
         const id = uuidV4();
