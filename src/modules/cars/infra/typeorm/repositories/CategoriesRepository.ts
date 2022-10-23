@@ -11,10 +11,10 @@ class CategoriesRepository implements ICategoriesRepository {
         this.repository = getRepository(Category);
     }
 
-    async create({ description, name }: ICreateCategoryDTO): Promise<Category> {
+    async create({ name, description }: ICreateCategoryDTO): Promise<Category> {
         const newCategory = this.repository.create({
-            description,
             name,
+            description,
         });
 
         const category = await this.repository.save(newCategory);
