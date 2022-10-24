@@ -20,7 +20,7 @@ class UploadCarImagesController {
 
         await uploadCarImagesUseCase.execute({ car_id, list_images_name });
 
-        return response.status(201).send();
+        return response.status(204).send();
     }
 }
 
