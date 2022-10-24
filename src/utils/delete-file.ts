@@ -1,13 +1,12 @@
 import fs from "fs";
 
 // eslint-disable-next-line consistent-return
-export const deleteFile = async (filename: string) => {
+export const deleteFile = async (path: string) => {
     try {
-        await fs.promises.stat(filename);
-    } catch (msg) {
-        return msg.message;
+        await fs.promises.stat(path);
+    } catch (error) {
+        return error.message;
     }
 
-    // Delete the file
-    await fs.promises.unlink(filename);
+    await fs.promises.unlink(path);
 };
