@@ -12,12 +12,12 @@ class UpdateUserAvatarController {
             UpdateUserAvatarUseCase
         );
 
-        const user = await updateUserAvatarUseCase.execute({
+        await updateUserAvatarUseCase.execute({
             user_id,
             avatar_file,
         });
 
-        return response.status(204).json(user);
+        return response.status(204).send();
     }
 }
 
