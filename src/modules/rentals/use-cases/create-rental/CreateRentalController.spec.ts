@@ -21,6 +21,7 @@ describe("Create Rental Controller", () => {
     beforeAll(async () => {
         connection = await createConnection();
         await connection.dropDatabase();
+        await connection.dropDatabase(); // just to make sure it's clean.
         await connection.runMigrations();
 
         const id = uuidV4();
