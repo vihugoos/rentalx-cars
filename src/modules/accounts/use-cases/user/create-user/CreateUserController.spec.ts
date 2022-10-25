@@ -45,6 +45,7 @@ describe("Create User Controller", () => {
             driver_license: "ABC-123",
         };
 
+        // Create a new user (test CreateUserController)
         const response = await request(app)
             .post("/users")
             .send(user)
