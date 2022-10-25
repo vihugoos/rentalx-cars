@@ -3,14 +3,15 @@ import { Connection } from "typeorm";
 
 import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUserDTO";
 import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
+import { AuthenticateUserUseCase } from "@modules/accounts/use-cases/user/authenticate-user/AuthenticateUserUseCase";
+import { CreateUserUseCase } from "@modules/accounts/use-cases/user/create-user/CreateUserUseCase";
 import { app } from "@shared/infra/http/app";
 import createConnection from "@shared/infra/typeorm/";
 import { deleteFile } from "@utils/delete-file";
 
-import { CreateUserUseCase } from "../create-user/CreateUserUseCase";
-
 let usersRepository: UsersRepository;
 let createUserUseCase: CreateUserUseCase;
+let authenticateUserUseCase: AuthenticateUserUseCase;
 let connection: Connection;
 
 const avatar_image_path = `${__dirname}/avatar-image-test.jpg`;
@@ -22,15 +23,18 @@ describe("Update User Avatar Controller", () => {
         await connection.runMigrations();
     });
 
+    beforeEach(() => {
+        usersRepository = new UsersRepository();
+        createUserUseCase = new CreateUserUseCase(usersRepository);
+        authenticateUserUseCase = new AuthenticateUserUseCase(usersRepository);
+    });
+
     afterAll(async () => {
         await connection.dropDatabase();
         await connection.close();
     });
 
     it("Should be able to update an user avatar", async () => {
-        usersRepository = new UsersRepository();
-        createUserUseCase = new CreateUserUseCase(usersRepository);
-
         const user: ICreateUserDTO = {
             name: "User test",
             password: "12345",
@@ -40,13 +44,12 @@ describe("Update User Avatar Controller", () => {
 
         await createUserUseCase.execute(user);
 
-        const responseToken = await request(app).post("/sessions").send({
+        const { token } = await authenticateUserUseCase.execute({
             email: user.email,
             password: user.password,
         });
 
-        const { token } = responseToken.body;
-
+        // Update user avatar (test UpdateUserAvatarController)
         const response = await request(app)
             .patch("/users/avatar")
             .attach("avatar", avatar_image_path)
