@@ -3,6 +3,7 @@ import { IUser } from "@modules/accounts/entities/IUser";
 
 interface IUsersRepository {
     create(data: ICreateUserDTO): Promise<IUser>;
+    list(): Promise<IUser[]>;
     findByEmail(email: string): Promise<IUser>;
     findById(id: string): Promise<IUser>;
     updateUserAvatar(id: string, avatar_file: string): Promise<IUser>;
