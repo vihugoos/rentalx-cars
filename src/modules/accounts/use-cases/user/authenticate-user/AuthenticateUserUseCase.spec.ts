@@ -5,16 +5,16 @@ import { CreateUserUseCase } from "@modules/accounts/use-cases/user/create-user/
 import { AppError } from "@shared/errors/AppError";
 
 let usersRepositoryInMemory: UsersRepositoryInMemory;
-let authenticateUserUseCase: AuthenticateUserUseCase;
 let createUserUseCase: CreateUserUseCase;
+let authenticateUserUseCase: AuthenticateUserUseCase;
 
 describe("Authenticate User Use Case", () => {
     beforeEach(() => {
         usersRepositoryInMemory = new UsersRepositoryInMemory();
+        createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
         authenticateUserUseCase = new AuthenticateUserUseCase(
             usersRepositoryInMemory
         );
-        createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
     });
 
     it("Should be able to authenticate an user", async () => {
