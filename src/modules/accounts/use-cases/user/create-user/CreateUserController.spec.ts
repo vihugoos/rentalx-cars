@@ -4,9 +4,13 @@ import { Connection } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
 import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUserDTO";
+import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
+import { AuthenticateUserUseCase } from "@modules/accounts/use-cases/user/authenticate-user/AuthenticateUserUseCase";
 import { app } from "@shared/infra/http/app";
 import createConnection from "@shared/infra/typeorm/";
 
+let usersRepository: UsersRepository;
+let authenticateUserUseCase: AuthenticateUserUseCase;
 let connection: Connection;
 
 describe("Create User Controller", () => {
@@ -25,18 +29,21 @@ describe("Create User Controller", () => {
         );
     });
 
+    beforeEach(() => {
+        usersRepository = new UsersRepository();
+        authenticateUserUseCase = new AuthenticateUserUseCase(usersRepository);
+    });
+
     afterAll(async () => {
         await connection.dropDatabase();
         await connection.close();
     });
 
     it("Should be able to create a new user", async () => {
-        const responseToken = await request(app).post("/sessions").send({
+        const { token } = await authenticateUserUseCase.execute({
             email: "admin@rentx.com",
             password: "admin_test",
         });
-
-        const { token } = responseToken.body;
 
         const user: ICreateUserDTO = {
             name: "User test",
