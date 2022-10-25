@@ -3,9 +3,15 @@ import request from "supertest";
 import { Connection } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
+import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
+import { AuthenticateUserUseCase } from "@modules/accounts/use-cases/user/authenticate-user/AuthenticateUserUseCase";
+import { CreateUserUseCase } from "@modules/accounts/use-cases/user/create-user/CreateUserUseCase";
 import { app } from "@shared/infra/http/app";
 import createConnection from "@shared/infra/typeorm/";
 
+let usersRepository: UsersRepository;
+let createUserUseCase: CreateUserUseCase;
+let authenticateUserUseCase: AuthenticateUserUseCase;
 let connection: Connection;
 
 describe("List Users Controller", () => {
@@ -24,46 +30,38 @@ describe("List Users Controller", () => {
         );
     });
 
+    beforeEach(() => {
+        usersRepository = new UsersRepository();
+        createUserUseCase = new CreateUserUseCase(usersRepository);
+        authenticateUserUseCase = new AuthenticateUserUseCase(usersRepository);
+    });
+
     afterAll(async () => {
         await connection.dropDatabase();
         await connection.close();
     });
 
-    it("Should be able to list all registered users", async () => {
-        const responseToken = await request(app).post("/sessions").send({
+    it("Should be able to get all users", async () => {
+        const { token } = await authenticateUserUseCase.execute({
             email: "admin@rentx.com",
             password: "admin_test",
         });
 
-        const { token } = responseToken.body;
+        await createUserUseCase.execute({
+            name: "User test 1",
+            password: "12345",
+            email: "email@test.com",
+            driver_license: "ABC-123",
+        });
 
-        // Create User 1
-        await request(app)
-            .post("/users")
-            .send({
-                name: "User test 1",
-                password: "12345",
-                email: "email@test.com",
-                driver_license: "ABC-123",
-            })
-            .set({
-                Authorization: `Bearer ${token}`,
-            });
+        await createUserUseCase.execute({
+            name: "User test 2",
+            password: "99999",
+            email: "usertest@test.com",
+            driver_license: "FFX-187",
+        });
 
-        // Create User 2
-        await request(app)
-            .post("/users")
-            .send({
-                name: "User test 2",
-                password: "99999",
-                email: "usertest@test.com",
-                driver_license: "FFX-187",
-            })
-            .set({
-                Authorization: `Bearer ${token}`,
-            });
-
-        // Get all users
+        // Get all users (test ListUsersController)
         const response = await request(app)
             .get("/users")
             .set({
