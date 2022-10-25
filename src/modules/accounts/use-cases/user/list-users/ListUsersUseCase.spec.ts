@@ -14,7 +14,7 @@ describe("List Users Use Case", () => {
         listUsersUseCase = new ListUsersUseCase(usersRepositoryInMemory);
     });
 
-    it("Should be able to list all registered users", async () => {
+    it("Should be able to list all users", async () => {
         await createUserUseCase.execute({
             name: "User test 1",
             password: "12345",
