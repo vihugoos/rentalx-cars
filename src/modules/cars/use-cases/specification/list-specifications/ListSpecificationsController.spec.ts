@@ -3,10 +3,14 @@ import request from "supertest";
 import { Connection } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
+import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
+import { AuthenticateUserUseCase } from "@modules/accounts/use-cases/user/authenticate-user/AuthenticateUserUseCase";
 import { SpecificationsRepository } from "@modules/cars/infra/typeorm/repositories/SpecificationsRepository";
 import { app } from "@shared/infra/http/app";
 import createConnection from "@shared/infra/typeorm/";
 
+let usersRepository: UsersRepository;
+let authenticateUserUseCase: AuthenticateUserUseCase;
 let specificationsRepository: SpecificationsRepository;
 let connection: Connection;
 
@@ -26,20 +30,22 @@ describe("List Specifications Controller", () => {
         );
     });
 
+    beforeEach(() => {
+        usersRepository = new UsersRepository();
+        authenticateUserUseCase = new AuthenticateUserUseCase(usersRepository);
+        specificationsRepository = new SpecificationsRepository();
+    });
+
     afterAll(async () => {
         await connection.dropDatabase();
         await connection.close();
     });
 
     it("Should be able to list all specifications created", async () => {
-        const responseToken = await request(app).post("/sessions").send({
+        const { token } = await authenticateUserUseCase.execute({
             email: "admin@rentx.com",
             password: "admin_test",
         });
-
-        const { token } = responseToken.body;
-
-        specificationsRepository = new SpecificationsRepository();
 
         await specificationsRepository.create({
             name: "Specification 1",
@@ -51,7 +57,7 @@ describe("List Specifications Controller", () => {
             description: "Specification 2 description",
         });
 
-        // Get all specifications
+        // Get all specifications (test ListSpecificationsController)
         const response = await request(app)
             .get("/specifications")
             .set({
