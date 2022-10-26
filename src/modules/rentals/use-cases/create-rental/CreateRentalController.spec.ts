@@ -1,10 +1,10 @@
-import { hash } from "bcrypt";
 import request from "supertest";
 import { Connection } from "typeorm";
-import { v4 as uuidV4 } from "uuid";
 
+import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUserDTO";
 import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
-import { ICreateCarDTO } from "@modules/cars/dtos/ICreateCarDTO";
+import { AuthenticateUserUseCase } from "@modules/accounts/use-cases/user/authenticate-user/AuthenticateUserUseCase";
+import { CreateUserUseCase } from "@modules/accounts/use-cases/user/create-user/CreateUserUseCase";
 import { CarsRepository } from "@modules/cars/infra/typeorm/repositories/CarsRepository";
 import { CategoriesRepository } from "@modules/cars/infra/typeorm/repositories/CategoriesRepository";
 import { DayjsDateProvider } from "@shared/container/providers/date-provider/implementations/DayjsDateProvider";
@@ -12,6 +12,8 @@ import { app } from "@shared/infra/http/app";
 import createConnection from "@shared/infra/typeorm/";
 
 let usersRepository: UsersRepository;
+let createUserUseCase: CreateUserUseCase;
+let authenticateUserUseCase: AuthenticateUserUseCase;
 let categoriesRepository: CategoriesRepository;
 let carsRepository: CarsRepository;
 let dayjsDateProvider: DayjsDateProvider;
@@ -21,17 +23,16 @@ describe("Create Rental Controller", () => {
     beforeAll(async () => {
         connection = await createConnection();
         await connection.dropDatabase();
-        await connection.dropDatabase(); // just to make sure it's clean.
         await connection.runMigrations();
+    });
 
-        const id = uuidV4();
-        const password = await hash("admin_test", 8);
-
-        await connection.query(
-            ` INSERT INTO USERS(id, name, email, password, driver_license, "admin", created_at)
-                values('${id}', 'admin_test', 'admin@rentx.com', '${password}', 'XXX-XXX', true, 'now()')
-            `
-        );
+    beforeEach(() => {
+        usersRepository = new UsersRepository();
+        createUserUseCase = new CreateUserUseCase(usersRepository);
+        authenticateUserUseCase = new AuthenticateUserUseCase(usersRepository);
+        categoriesRepository = new CategoriesRepository();
+        carsRepository = new CarsRepository();
+        dayjsDateProvider = new DayjsDateProvider();
     });
 
     afterAll(async () => {
@@ -40,26 +41,26 @@ describe("Create Rental Controller", () => {
     });
 
     it("Should be able to create a new rental", async () => {
-        const responseToken = await request(app).post("/sessions").send({
-            email: "admin@rentx.com",
-            password: "admin_test",
+        const newUser: ICreateUserDTO = {
+            name: "User test",
+            password: "12345",
+            email: "user@test.com",
+            driver_license: "ABC-123",
+        };
+
+        const user = await createUserUseCase.execute(newUser);
+
+        const { token } = await authenticateUserUseCase.execute({
+            email: newUser.email,
+            password: newUser.password,
         });
-
-        const { token } = responseToken.body;
-
-        usersRepository = new UsersRepository();
-        categoriesRepository = new CategoriesRepository();
-        carsRepository = new CarsRepository();
-        dayjsDateProvider = new DayjsDateProvider();
-
-        const user = await usersRepository.findByEmail("admin@rentx.com");
 
         const category = await categoriesRepository.create({
             name: "Category Test",
             description: "Category test description",
         });
 
-        const newCar: ICreateCarDTO = {
+        const car = await carsRepository.create({
             name: "Ferrari 488 Spider",
             description: "Luxury sports",
             daily_rate: 900,
@@ -67,10 +68,9 @@ describe("Create Rental Controller", () => {
             fine_amount: 4000,
             brand: "Ferrari",
             category_id: category.id,
-        };
+        });
 
-        const car = await carsRepository.create(newCar);
-
+        // Create a new rental (test CreateRentalController)
         const response = await request(app)
             .post("/rentals")
             .send({
