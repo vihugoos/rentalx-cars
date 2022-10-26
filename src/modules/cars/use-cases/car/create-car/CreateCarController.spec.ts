@@ -3,11 +3,15 @@ import request from "supertest";
 import { Connection } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
+import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
+import { AuthenticateUserUseCase } from "@modules/accounts/use-cases/user/authenticate-user/AuthenticateUserUseCase";
 import { ICreateCarDTO } from "@modules/cars/dtos/ICreateCarDTO";
 import { CategoriesRepository } from "@modules/cars/infra/typeorm/repositories/CategoriesRepository";
 import { app } from "@shared/infra/http/app";
 import createConnection from "@shared/infra/typeorm/";
 
+let usersRepository: UsersRepository;
+let authenticateUserUseCase: AuthenticateUserUseCase;
 let categoriesRepository: CategoriesRepository;
 let connection: Connection;
 
@@ -27,20 +31,22 @@ describe("Create Car Controller", () => {
         );
     });
 
+    beforeEach(() => {
+        usersRepository = new UsersRepository();
+        authenticateUserUseCase = new AuthenticateUserUseCase(usersRepository);
+        categoriesRepository = new CategoriesRepository();
+    });
+
     afterAll(async () => {
         await connection.dropDatabase();
         await connection.close();
     });
 
     it("Should be able to create a new car", async () => {
-        const responseToken = await request(app).post("/sessions").send({
+        const { token } = await authenticateUserUseCase.execute({
             email: "admin@rentx.com",
             password: "admin_test",
         });
-
-        const { token } = responseToken.body;
-
-        categoriesRepository = new CategoriesRepository();
 
         const category = await categoriesRepository.create({
             name: "Category Test",
@@ -57,6 +63,7 @@ describe("Create Car Controller", () => {
             category_id: category.id,
         };
 
+        // Create a new car (test CreateCarController)
         const response = await request(app)
             .post("/cars")
             .send(car)
