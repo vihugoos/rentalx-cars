@@ -1,11 +1,11 @@
-import { hash } from "bcrypt";
 import request from "supertest";
 import { Connection } from "typeorm";
-import { v4 as uuidV4 } from "uuid";
 
+import { CategoriesRepository } from "@modules/cars/infra/typeorm/repositories/CategoriesRepository";
 import { app } from "@shared/infra/http/app";
 import createConnection from "@shared/infra/typeorm/";
 
+let categoriesRepository: CategoriesRepository;
 let connection: Connection;
 
 describe("List Categories Controller", () => {
@@ -13,15 +13,10 @@ describe("List Categories Controller", () => {
         connection = await createConnection();
         await connection.dropDatabase();
         await connection.runMigrations();
+    });
 
-        const id = uuidV4();
-        const password = await hash("admin_test", 8);
-
-        await connection.query(
-            `INSERT INTO USERS(id, name, email, password, driver_license, "admin", created_at)
-                values('${id}', 'admin_test', 'admin@rentx.com', '${password}', 'XXX-XXX', true, 'now()')
-            `
-        );
+    beforeEach(() => {
+        categoriesRepository = new CategoriesRepository();
     });
 
     afterAll(async () => {
@@ -30,36 +25,17 @@ describe("List Categories Controller", () => {
     });
 
     it("Should be able to list all categories", async () => {
-        const responseToken = await request(app).post("/sessions").send({
-            email: "admin@rentx.com",
-            password: "admin_test",
+        await categoriesRepository.create({
+            name: "Category 1",
+            description: "Category 1 description",
         });
 
-        const { token } = responseToken.body;
+        await categoriesRepository.create({
+            name: "Category 2",
+            description: "Category 2 description",
+        });
 
-        // Create Category 1
-        await request(app)
-            .post("/categories")
-            .send({
-                name: "Category 1",
-                description: "Category 1",
-            })
-            .set({
-                Authorization: `Bearer ${token}`,
-            });
-
-        // Create Category 2
-        await request(app)
-            .post("/categories")
-            .send({
-                name: "Category 2",
-                description: "Category 2",
-            })
-            .set({
-                Authorization: `Bearer ${token}`,
-            });
-
-        // Get categories
+        // Get categories (test ListCategoriesController)
         const response = await request(app).get("/categories");
 
         expect(response.status).toBe(200);
