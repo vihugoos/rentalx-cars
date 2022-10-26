@@ -3,12 +3,16 @@ import request from "supertest";
 import { Connection } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
+import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
+import { AuthenticateUserUseCase } from "@modules/accounts/use-cases/user/authenticate-user/AuthenticateUserUseCase";
 import { CarsRepository } from "@modules/cars/infra/typeorm/repositories/CarsRepository";
 import { CategoriesRepository } from "@modules/cars/infra/typeorm/repositories/CategoriesRepository";
 import { SpecificationsRepository } from "@modules/cars/infra/typeorm/repositories/SpecificationsRepository";
 import { app } from "@shared/infra/http/app";
 import createConnection from "@shared/infra/typeorm/";
 
+let usersRepository: UsersRepository;
+let authenticateUserUseCase: AuthenticateUserUseCase;
 let categoriesRepository: CategoriesRepository;
 let carsRepository: CarsRepository;
 let specificationsRepository: SpecificationsRepository;
@@ -30,22 +34,24 @@ describe("Create Car Specifications Controller", () => {
         );
     });
 
+    beforeEach(() => {
+        usersRepository = new UsersRepository();
+        authenticateUserUseCase = new AuthenticateUserUseCase(usersRepository);
+        categoriesRepository = new CategoriesRepository();
+        carsRepository = new CarsRepository();
+        specificationsRepository = new SpecificationsRepository();
+    });
+
     afterAll(async () => {
         await connection.dropDatabase();
         await connection.close();
     });
 
     it("Should be able to add a new specifications to the car", async () => {
-        const responseToken = await request(app).post("/sessions").send({
+        const { token } = await authenticateUserUseCase.execute({
             email: "admin@rentx.com",
             password: "admin_test",
         });
-
-        const { token } = responseToken.body;
-
-        categoriesRepository = new CategoriesRepository();
-        carsRepository = new CarsRepository();
-        specificationsRepository = new SpecificationsRepository();
 
         const category = await categoriesRepository.create({
             name: "Category Test",
@@ -72,6 +78,7 @@ describe("Create Car Specifications Controller", () => {
             description: "Specifications 2",
         });
 
+        // Add a new specifications to the car (test CreateCarSpecificationsController)
         const response = await request(app)
             .post(`/cars/specifications/${car.id}`)
             .send({
