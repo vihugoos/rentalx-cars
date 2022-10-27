@@ -1,7 +1,7 @@
 import { Router } from "express";
 import multer from "multer";
 
-import uploadConfig from "@config/upload";
+import uploadConfig from "@config/upload-file";
 import { CreateUserController } from "@modules/accounts/use-cases/user/create-user/CreateUserController";
 import { ListUsersController } from "@modules/accounts/use-cases/user/list-users/ListUsersController";
 import { UpdateUserAvatarController } from "@modules/accounts/use-cases/user/update-user-avatar/UpdateUserAvatarController";
@@ -10,7 +10,7 @@ import { ensureAuthenticated } from "@shared/infra/http/middlewares/ensureAuthen
 
 const usersRoutes = Router();
 
-const uploadAvatar = multer(uploadConfig.upload("./tmp/avatar"));
+const uploadAvatar = multer(uploadConfig.uploadFile("./tmp/avatar"));
 
 // Route to create a new user
 usersRoutes.post(
