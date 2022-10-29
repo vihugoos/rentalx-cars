@@ -83,3 +83,4 @@ Application developed for car rental.
 - After the return, the rent total must be calculated.
 - If the time of return is later than the estimated time of delivery, a fine will be charged proportional to the days of delay.
 - If there are fines, they must be added to the total rent.
+- The user must be logged into the application.
