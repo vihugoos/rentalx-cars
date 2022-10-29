@@ -81,9 +81,12 @@ describe("Create Rental Controller", () => {
                 Authorization: `Bearer ${token}`,
             });
 
+        const updatedCar = await carsRepository.findById(car.id);
+
         expect(response.status).toBe(201);
         expect(response.body).toHaveProperty("id");
         expect(response.body.user_id).toEqual(user.id);
         expect(response.body.car_id).toEqual(car.id);
+        expect(updatedCar.available).toBe(false);
     });
 });
