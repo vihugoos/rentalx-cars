@@ -21,6 +21,13 @@ class DayjsDateProvider implements IDateProvider {
         return dayjs(date_1_utc).diff(date_2_utc, "hours");
     }
 
+    diffInDays(date_1: Date, date_2: Date): number {
+        const date_1_utc = this.convertToUTC(date_1);
+        const date_2_utc = this.convertToUTC(date_2);
+
+        return dayjs(date_1_utc).diff(date_2_utc, "days");
+    }
+
     todayAdd24Hours(): Date {
         return dayjs().add(1, "day").toDate();
     }
