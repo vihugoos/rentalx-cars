@@ -67,3 +67,19 @@ Application developed for car rental.
 - It must not be possible to register a new rental if it's already open for the same user. 
 - It must not be possible to register a new rental if it's already open for the same car. 
 - The user must be logged into the application.
+- After making a rental, the status of the car must be changed to unavailable.
+
+---
+
+### Car Devolution
+
+**RF** (<i>Functional Requirements</i>
+- It must be possible to return the car.
+
+**RN** (<i>Business Rules</i>)
+- If the car returns with less than 24 hours, it must be charged for the full day.
+- After the return, the car must be released for another rental.
+- After the return, the user must be released for another rental.
+- After the return, the rent total must be calculated.
+- If the time of return is later than the estimated time of delivery, a fine will be charged proportional to the days of delay.
+- If there are fines, they must be added to the total rent.
