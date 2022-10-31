@@ -1,4 +1,4 @@
-import { inject } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import { IRental } from "@modules/rentals/entities/IRental";
@@ -8,9 +8,10 @@ import { AppError } from "@shared/errors/AppError";
 
 interface IRequest {
     rental_id: string;
-    car_id: string;
+    user_id: string;
 }
 
+@injectable()
 class DevolutionRentalUseCase {
     constructor(
         @inject("RentalsRepository")
@@ -23,12 +24,8 @@ class DevolutionRentalUseCase {
         private dateProvider: IDateProvider
     ) {}
 
-    async execute({ rental_id, car_id }: IRequest): Promise<IRental> {
-        const car = await this.carsRepository.findById(car_id);
-
-        if (!car) {
-            throw new AppError("Car does not exists!");
-        }
+    async execute({ rental_id, user_id }: IRequest): Promise<IRental> {
+        const minimumDaily = 1;
 
         const rental = await this.rentalsRepository.findById(rental_id);
 
@@ -36,9 +33,19 @@ class DevolutionRentalUseCase {
             throw new AppError("Rental does not exists!");
         }
 
+        const car = await this.carsRepository.findById(rental.car_id);
+
+        if (!car) {
+            throw new AppError("Car does not exists!");
+        }
+
         const dateNow = this.dateProvider.dateNow();
 
-        const daily = this.dateProvider.diffInDays(dateNow, rental.start_date);
+        let daily = this.dateProvider.diffInDays(dateNow, rental.start_date);
+
+        if (daily === 0) {
+            daily = minimumDaily;
+        }
 
         const delay = this.dateProvider.diffInDays(
             dateNow,
@@ -56,8 +63,8 @@ class DevolutionRentalUseCase {
         rental.end_date = dateNow;
         rental.total = total;
 
-        await this.rentalsRepository.create(rental);
-        await this.carsRepository.updateAvailable(car_id, true);
+        await this.rentalsRepository.finishRental(rental);
+        await this.carsRepository.updateAvailable(rental.car_id, true);
 
         return rental;
     }
