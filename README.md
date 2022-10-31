@@ -59,7 +59,7 @@ Application developed for car rental.
 
 ### Car Rental 
 
-**RF** (<i>Functional Requirements</i>
+**RF** (<i>Functional Requirements</i>)
 - It must be possible to register a rental. 
 
 **RN** (<i>Business Rules</i>)
@@ -73,7 +73,7 @@ Application developed for car rental.
 
 ### Car Devolution
 
-**RF** (<i>Functional Requirements</i>
+**RF** (<i>Functional Requirements</i>)
 - It must be possible to return the car.
 
 **RN** (<i>Business Rules</i>)
@@ -84,3 +84,14 @@ Application developed for car rental.
 - If the time of return is later than the estimated time of delivery, a fine will be charged proportional to the days of delay.
 - If there are fines, they must be added to the total rent.
 - The user must be logged into the application.
+
+--- 
+
+### User Rental Listing
+
+**RF** (<i>Functional Requirements</i>)
+- It must be possible to search all rentals made by user. 
+
+**RN** (<i>Business Rules</i>)
+- The user must be logged into the application.
+
