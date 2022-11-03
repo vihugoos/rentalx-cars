@@ -71,6 +71,8 @@ describe("Create Car Controller", () => {
                 Authorization: `Bearer ${token}`,
             });
 
+        console.log(response);
+
         expect(response.status).toBe(201);
         expect(response.body).toHaveProperty("id");
         expect(response.body.name).toEqual(car.name);
