@@ -83,6 +83,8 @@ describe("Create Rental Controller", () => {
 
         const updatedCar = await carsRepository.findById(car.id);
 
+        console.log(response);
+
         expect(response.status).toBe(201);
         expect(response.body).toHaveProperty("id");
         expect(response.body.user_id).toEqual(user.id);
