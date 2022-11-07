@@ -26,17 +26,18 @@ describe("Create User Use Case", () => {
         expect(user).toHaveProperty("id");
     });
 
-    it("Should not be able to create an already existing user", () => {
-        expect(async () => {
-            const user: ICreateUserDTO = {
-                name: "User F",
-                password: "16851",
-                email: "user@test.com",
-                driver_license: "KSN-123",
-            };
+    it("Should not be able to create an already existing user", async () => {
+        const user: ICreateUserDTO = {
+            name: "User F",
+            password: "16851",
+            email: "user@test.com",
+            driver_license: "KSN-123",
+        };
 
-            await createUserUseCase.execute(user);
-            await createUserUseCase.execute(user);
-        }).rejects.toBeInstanceOf(AppError);
+        await createUserUseCase.execute(user);
+
+        await expect(createUserUseCase.execute(user)).rejects.toEqual(
+            new AppError("User already exists.")
+        );
     });
 });

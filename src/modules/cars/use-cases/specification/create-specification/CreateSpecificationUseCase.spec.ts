@@ -25,15 +25,16 @@ describe("Create Specification Use Case", () => {
         expect(specification).toHaveProperty("id");
     });
 
-    it("Should not be able to create a new specification with an existing name", () => {
-        expect(async () => {
-            const specification: ICreateSpecificationDTO = {
-                name: "Specification F",
-                description: "Specification F description",
-            };
+    it("Should not be able to create a new specification with an existing name", async () => {
+        const specification: ICreateSpecificationDTO = {
+            name: "Specification F",
+            description: "Specification F description",
+        };
 
-            await createSpecificationUseCase.execute(specification);
-            await createSpecificationUseCase.execute(specification);
-        }).rejects.toBeInstanceOf(AppError);
+        await createSpecificationUseCase.execute(specification);
+
+        await expect(
+            createSpecificationUseCase.execute(specification)
+        ).rejects.toEqual(new AppError("Specification already exists!"));
     });
 });

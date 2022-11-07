@@ -120,11 +120,11 @@ describe("List Available Cars Use Case", () => {
     });
 
     it("Should not be able to list cars", async () => {
-        expect(async () => {
-            await listAvailableCarsUseCase.execute({
+        await expect(
+            listAvailableCarsUseCase.execute({
                 type_filter: "invalid_type_filter",
                 value: "12345",
-            });
-        }).rejects.toBeInstanceOf(AppError);
+            })
+        ).rejects.toEqual(new AppError("Invalid type filter!"));
     });
 });
