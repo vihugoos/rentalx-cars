@@ -31,6 +31,10 @@ class DayjsDateProvider implements IDateProvider {
     todayAdd24Hours(): Date {
         return dayjs().add(1, "day").toDate();
     }
+
+    addDays(days: number): Date {
+        return dayjs().add(days, "days").toDate();
+    }
 }
 
 export { DayjsDateProvider };

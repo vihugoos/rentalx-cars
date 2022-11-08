@@ -4,6 +4,7 @@ interface IDateProvider {
     diffInHours(date_1: Date, date_2: Date): number;
     diffInDays(date_1: Date, date_2: Date): number;
     todayAdd24Hours(): Date;
+    addDays(days: number): Date;
 }
 
 export { IDateProvider };
