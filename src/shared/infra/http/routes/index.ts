@@ -3,6 +3,7 @@ import { Router } from "express";
 import { authenticateRoutes } from "./authenticate.routes";
 import { carsRoutes } from "./cars.routes";
 import { categoriesRoutes } from "./categories.routes";
+import { passwordRoutes } from "./password.routes";
 import { rentalsRoutes } from "./rentals.routes";
 import { specificationsRoutes } from "./specifications.routes";
 import { usersRoutes } from "./users.routes";
@@ -18,6 +19,8 @@ routers.use("/users", usersRoutes);
 routers.use("/cars", carsRoutes);
 
 routers.use("/rentals", rentalsRoutes);
+
+routers.use("/password", passwordRoutes);
 
 routers.use(authenticateRoutes);
 
