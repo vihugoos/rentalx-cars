@@ -50,6 +50,16 @@ class UsersRepository implements IUsersRepository {
 
         return userWithAvatar;
     }
+
+    async updatedUserPassword(id: string, password: string): Promise<User> {
+        const user = await this.repository.findOne(id);
+
+        user.password = password;
+
+        const userUpdated = await this.repository.save(user);
+
+        return userUpdated;
+    }
 }
 
 export { UsersRepository };
