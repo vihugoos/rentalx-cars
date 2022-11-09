@@ -95,3 +95,16 @@ Application developed for car rental.
 **RN** (<i>Business Rules</i>)
 - The user must be logged into the application.
 
+---
+
+### Password recovery
+
+**RF** (<i>Functional Requirements</i>)
+- It must be possible for the user to recover the password by informing the email.
+- The user should received an e-mail with step-by-step for password recovery.
+- The user should be able to get a new password.
+
+**RN** (<i>Business Rules</i>)
+- The user must enter a new password.
+- The link sent for password recovery must expire in 3 hours.
+
