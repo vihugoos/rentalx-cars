@@ -6,6 +6,7 @@ interface IDateProvider {
     todayAdd24Hours(): Date;
     addDays(days: number): Date;
     addHours(hours: number): Date;
+    compareIfBefore(date_1: Date, date_2: Date): boolean;
 }
 
 export { IDateProvider };
