@@ -46,6 +46,16 @@ class UsersRepositoryInMemory implements IUsersRepository {
 
         return user;
     }
+
+    async updatedUserPassword(id: string, password: string): Promise<User> {
+        const user = this.users.find((user) => user.id === id);
+
+        user.password = password;
+
+        this.users.push(user);
+
+        return user;
+    }
 }
 
 export { UsersRepositoryInMemory };
