@@ -4,14 +4,18 @@ import { Connection } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
 import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
+import { UsersTokensRepository } from "@modules/accounts/infra/typeorm/repositories/UsersTokensRepository";
 import { AuthenticateUserUseCase } from "@modules/accounts/use-cases/user/authenticate-user/AuthenticateUserUseCase";
 import { CarsRepository } from "@modules/cars/infra/typeorm/repositories/CarsRepository";
 import { CategoriesRepository } from "@modules/cars/infra/typeorm/repositories/CategoriesRepository";
 import { SpecificationsRepository } from "@modules/cars/infra/typeorm/repositories/SpecificationsRepository";
+import { DayjsDateProvider } from "@shared/container/providers/date-provider/implementations/DayjsDateProvider";
 import { app } from "@shared/infra/http/app";
 import createConnection from "@shared/infra/typeorm/";
 
 let usersRepository: UsersRepository;
+let usersTokensRepository: UsersTokensRepository;
+let dayjsDateProvider: DayjsDateProvider;
 let authenticateUserUseCase: AuthenticateUserUseCase;
 let categoriesRepository: CategoriesRepository;
 let carsRepository: CarsRepository;
@@ -36,7 +40,13 @@ describe("Create Car Specifications Controller", () => {
 
     beforeEach(() => {
         usersRepository = new UsersRepository();
-        authenticateUserUseCase = new AuthenticateUserUseCase(usersRepository);
+        usersTokensRepository = new UsersTokensRepository();
+        dayjsDateProvider = new DayjsDateProvider();
+        authenticateUserUseCase = new AuthenticateUserUseCase(
+            usersRepository,
+            usersTokensRepository,
+            dayjsDateProvider
+        );
         categoriesRepository = new CategoriesRepository();
         carsRepository = new CarsRepository();
         specificationsRepository = new SpecificationsRepository();
@@ -48,7 +58,7 @@ describe("Create Car Specifications Controller", () => {
     });
 
     it("Should be able to add a new specifications to the car", async () => {
-        const { token } = await authenticateUserUseCase.execute({
+        const { refresh_token } = await authenticateUserUseCase.execute({
             email: "admin@rentx.com",
             password: "admin_test",
         });
@@ -88,7 +98,7 @@ describe("Create Car Specifications Controller", () => {
                 ],
             })
             .set({
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${refresh_token}`,
             });
 
         expect(response.status).toBe(201);

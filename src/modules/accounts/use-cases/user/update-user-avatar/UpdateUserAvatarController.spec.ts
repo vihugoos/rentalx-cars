@@ -3,15 +3,19 @@ import { Connection } from "typeorm";
 
 import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUserDTO";
 import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
+import { UsersTokensRepository } from "@modules/accounts/infra/typeorm/repositories/UsersTokensRepository";
 import { AuthenticateUserUseCase } from "@modules/accounts/use-cases/user/authenticate-user/AuthenticateUserUseCase";
 import { CreateUserUseCase } from "@modules/accounts/use-cases/user/create-user/CreateUserUseCase";
+import { DayjsDateProvider } from "@shared/container/providers/date-provider/implementations/DayjsDateProvider";
 import { app } from "@shared/infra/http/app";
 import createConnection from "@shared/infra/typeorm/";
 import { deleteFile } from "@utils/delete-file";
 
 let usersRepository: UsersRepository;
-let createUserUseCase: CreateUserUseCase;
+let usersTokensRepository: UsersTokensRepository;
+let dayjsDateProvider: DayjsDateProvider;
 let authenticateUserUseCase: AuthenticateUserUseCase;
+let createUserUseCase: CreateUserUseCase;
 let connection: Connection;
 
 const avatar_image_path = `${__dirname}/avatar-image-test.jpg`;
@@ -25,8 +29,14 @@ describe("Update User Avatar Controller", () => {
 
     beforeEach(() => {
         usersRepository = new UsersRepository();
+        usersTokensRepository = new UsersTokensRepository();
+        dayjsDateProvider = new DayjsDateProvider();
+        authenticateUserUseCase = new AuthenticateUserUseCase(
+            usersRepository,
+            usersTokensRepository,
+            dayjsDateProvider
+        );
         createUserUseCase = new CreateUserUseCase(usersRepository);
-        authenticateUserUseCase = new AuthenticateUserUseCase(usersRepository);
     });
 
     afterAll(async () => {
@@ -44,7 +54,7 @@ describe("Update User Avatar Controller", () => {
 
         await createUserUseCase.execute(user);
 
-        const { token } = await authenticateUserUseCase.execute({
+        const { refresh_token } = await authenticateUserUseCase.execute({
             email: user.email,
             password: user.password,
         });
@@ -54,7 +64,7 @@ describe("Update User Avatar Controller", () => {
             .patch("/users/avatar")
             .attach("avatar", avatar_image_path)
             .set({
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${refresh_token}`,
             });
 
         expect(response.status).toBe(204);

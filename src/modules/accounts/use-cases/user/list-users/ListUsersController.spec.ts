@@ -4,14 +4,18 @@ import { Connection } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
 import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
+import { UsersTokensRepository } from "@modules/accounts/infra/typeorm/repositories/UsersTokensRepository";
 import { AuthenticateUserUseCase } from "@modules/accounts/use-cases/user/authenticate-user/AuthenticateUserUseCase";
 import { CreateUserUseCase } from "@modules/accounts/use-cases/user/create-user/CreateUserUseCase";
+import { DayjsDateProvider } from "@shared/container/providers/date-provider/implementations/DayjsDateProvider";
 import { app } from "@shared/infra/http/app";
 import createConnection from "@shared/infra/typeorm/";
 
 let usersRepository: UsersRepository;
-let createUserUseCase: CreateUserUseCase;
+let usersTokensRepository: UsersTokensRepository;
+let dayjsDateProvider: DayjsDateProvider;
 let authenticateUserUseCase: AuthenticateUserUseCase;
+let createUserUseCase: CreateUserUseCase;
 let connection: Connection;
 
 describe("List Users Controller", () => {
@@ -32,8 +36,14 @@ describe("List Users Controller", () => {
 
     beforeEach(() => {
         usersRepository = new UsersRepository();
+        usersTokensRepository = new UsersTokensRepository();
+        dayjsDateProvider = new DayjsDateProvider();
+        authenticateUserUseCase = new AuthenticateUserUseCase(
+            usersRepository,
+            usersTokensRepository,
+            dayjsDateProvider
+        );
         createUserUseCase = new CreateUserUseCase(usersRepository);
-        authenticateUserUseCase = new AuthenticateUserUseCase(usersRepository);
     });
 
     afterAll(async () => {
@@ -42,7 +52,7 @@ describe("List Users Controller", () => {
     });
 
     it("Should be able to get all users", async () => {
-        const { token } = await authenticateUserUseCase.execute({
+        const { refresh_token } = await authenticateUserUseCase.execute({
             email: "admin@rentx.com",
             password: "admin_test",
         });
@@ -65,7 +75,7 @@ describe("List Users Controller", () => {
         const response = await request(app)
             .get("/users")
             .set({
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${refresh_token}`,
             });
 
         expect(response.status).toBe(200);
