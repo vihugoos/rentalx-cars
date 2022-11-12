@@ -47,8 +47,8 @@ class EtherealMailProvider implements IMailProvider {
             html: templateHTML,
         });
 
-        console.log(`Message sent: ${message.messageId}`);
-        console.log(`Preview URL: ${nodemailer.getTestMessageUrl(message)}`);
+        // console.log(`Message sent: ${message.messageId}`);
+        // console.log(`Preview URL: ${nodemailer.getTestMessageUrl(message)}`);
     }
 }
 
