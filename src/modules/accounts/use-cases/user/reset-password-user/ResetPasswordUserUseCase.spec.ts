@@ -85,8 +85,6 @@ describe("Reset Password User Use Case", () => {
             expiresIn: auth.expires_in_refresh_token,
         });
 
-        console.log("just testing")
-
         // Insert an already date expired token
         const refresh_token_expires_date = dayjsDateProvider.addDays(-1);
 
