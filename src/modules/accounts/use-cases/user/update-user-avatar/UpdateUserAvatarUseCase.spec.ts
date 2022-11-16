@@ -1,4 +1,3 @@
-import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUserDTO";
 import { UsersRepositoryInMemory } from "@modules/accounts/infra/in-memory/UsersRepositoryInMemory";
 import { CreateUserUseCase } from "@modules/accounts/use-cases/user/create-user/CreateUserUseCase";
 
@@ -18,20 +17,25 @@ describe("Update User Avatar Use Case", () => {
     });
 
     it("Should be able to update an user avatar", async () => {
-        const newUser: ICreateUserDTO = {
+        const user = await createUserUseCase.execute({
             name: "User test",
             password: "12345",
             email: "user@test.com",
             driver_license: "ABC-123",
-        };
+        });
 
-        const user = await createUserUseCase.execute(newUser);
-
-        const userWithAvatar = await updateUserAvatarUseCase.execute({
+        // Create an user avatar
+        await updateUserAvatarUseCase.execute({
             user_id: user.id,
             avatar_file: "filename",
         });
 
-        expect(userWithAvatar.avatar).toBeTruthy();
+        // Update user avatar
+        const userWithAvatar = await updateUserAvatarUseCase.execute({
+            user_id: user.id,
+            avatar_file: "new_filename",
+        });
+
+        expect(userWithAvatar.avatar).toEqual("new_filename");
     });
 });
