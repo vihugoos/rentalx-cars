@@ -40,7 +40,7 @@ describe("Refresh Token Controller", () => {
         await connection.close();
     });
 
-    it("Should be able to refresh the refresh_token", async () => {
+    it("Should be able to refresh the refresh_token received by body", async () => {
         await createUserUseCase.execute({
             name: "User test",
             password: "12345",
@@ -57,6 +57,52 @@ describe("Refresh Token Controller", () => {
         const response = await request(app)
             .post("/refresh-token")
             .send({ token: refresh_token });
+
+        expect(response.status).toBe(200);
+        expect(response.body.refresh_token).toBeTruthy();
+    });
+
+    it("Should be able to refresh the refresh_token received by header", async () => {
+        await createUserUseCase.execute({
+            name: "User test 2",
+            password: "12345",
+            email: "user2@test.com",
+            driver_license: "FFF-222",
+        });
+
+        const { refresh_token } = await authenticateUserUseCase.execute({
+            email: "user2@test.com",
+            password: "12345",
+        });
+
+        // Refresh Token Controller (test RefreshTokenController)
+        const response = await request(app)
+            .post("/refresh-token")
+            .set({
+                "x-access-token": `${refresh_token}`,
+            });
+
+        expect(response.status).toBe(200);
+        expect(response.body.refresh_token).toBeTruthy();
+    });
+
+    it("Should be able to refresh the refresh_token received by query", async () => {
+        await createUserUseCase.execute({
+            name: "User test 3",
+            password: "12345",
+            email: "user3@test.com",
+            driver_license: "FFF-222",
+        });
+
+        const { refresh_token } = await authenticateUserUseCase.execute({
+            email: "user3@test.com",
+            password: "12345",
+        });
+
+        // Refresh Token Controller (test RefreshTokenController)
+        const response = await request(app).post(
+            `/refresh-token?token=${refresh_token}`
+        );
 
         expect(response.status).toBe(200);
         expect(response.body.refresh_token).toBeTruthy();
