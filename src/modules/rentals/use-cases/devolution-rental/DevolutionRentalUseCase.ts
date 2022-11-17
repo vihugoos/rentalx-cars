@@ -6,11 +6,6 @@ import { IRentalsRepository } from "@modules/rentals/repositories/IRentalsReposi
 import { IDateProvider } from "@shared/container/providers/date-provider/IDateProvider";
 import { AppError } from "@shared/errors/AppError";
 
-interface IRequest {
-    rental_id: string;
-    user_id: string;
-}
-
 @injectable()
 class DevolutionRentalUseCase {
     constructor(
@@ -24,7 +19,7 @@ class DevolutionRentalUseCase {
         private dateProvider: IDateProvider
     ) {}
 
-    async execute({ rental_id, user_id }: IRequest): Promise<IRental> {
+    async execute(rental_id: string): Promise<IRental> {
         const minimumDaily = 1;
 
         const rental = await this.rentalsRepository.findById(rental_id);
@@ -34,10 +29,6 @@ class DevolutionRentalUseCase {
         }
 
         const car = await this.carsRepository.findById(rental.car_id);
-
-        if (!car) {
-            throw new AppError("Car does not exists!");
-        }
 
         const dateNow = this.dateProvider.dateNow();
 
