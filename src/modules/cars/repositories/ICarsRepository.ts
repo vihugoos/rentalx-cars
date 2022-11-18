@@ -8,6 +8,7 @@ interface ICarsRepository {
     findAllAvailable(type_filter: string, value: string): Promise<ICar[]>;
     createCarSpecifications(car: ICar): Promise<ICar>;
     updateAvailable(id: string, available: boolean): Promise<void>;
+    list(): Promise<ICar[]>;
 }
 
 export { ICarsRepository };
