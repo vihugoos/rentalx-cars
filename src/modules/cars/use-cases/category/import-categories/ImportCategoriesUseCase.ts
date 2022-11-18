@@ -18,7 +18,7 @@ class ImportCategoriesUseCase {
 
     // example: SUV,Sports Utility
     loadCategories(file: Express.Multer.File): Promise<IImportCategory[]> {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             const categories: IImportCategory[] = [];
 
             const stream = fs.createReadStream(file.path);
@@ -37,9 +37,6 @@ class ImportCategoriesUseCase {
                 .on("end", () => {
                     fs.promises.unlink(file.path);
                     resolve(categories);
-                })
-                .on("error", (err) => {
-                    reject(err);
                 });
         });
     }
