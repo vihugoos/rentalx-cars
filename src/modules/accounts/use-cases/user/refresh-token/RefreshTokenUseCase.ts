@@ -22,6 +22,12 @@ class RefreshTokenUseCase {
     ) {}
 
     async execute(token: string): Promise<object> {
+        try {
+            verify(token, auth.secret_refresh_token);
+        } catch {
+            throw new AppError("Invalid token!", 401);
+        }
+
         const { email, sub } = verify(
             token,
             auth.secret_refresh_token
