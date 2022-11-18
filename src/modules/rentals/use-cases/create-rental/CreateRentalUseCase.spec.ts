@@ -43,6 +43,16 @@ describe("Create Rental Use Case", () => {
         expect(rental).toHaveProperty("start_date");
     });
 
+    it("Should not be able to create a new rental for a non-existent car", async () => {
+        await expect(
+            createRentalUseCase.execute({
+                user_id: "a501b417-982f-455f-b257-3a1586fb59a2",
+                car_id: "invalid_car_id",
+                expected_return_date: dayjsDateProvider.todayAdd24Hours(),
+            })
+        ).rejects.toEqual(new AppError("Car does not exists!"));
+    });
+
     it("Should not be able to create a new rental if there is another open to the same car", async () => {
         const car = await carsRepositoryInMemory.create({
             name: "Car Test",
@@ -108,10 +118,20 @@ describe("Create Rental Use Case", () => {
     });
 
     it("Should not be able to create a new rental with an invalid turnaround time.", async () => {
+        const car = await carsRepositoryInMemory.create({
+            name: "Car Test",
+            description: "Car test description",
+            daily_rate: 900,
+            license_plate: "ABC-2984",
+            fine_amount: 4000,
+            brand: "JTest",
+            category_id: "1234",
+        });
+
         await expect(
             createRentalUseCase.execute({
                 user_id: "a501b417-982f-455f-b257-3a1586fb59a2",
-                car_id: "3462d107-b147-44b8-94f1-d06db80bbf77",
+                car_id: car.id,
                 expected_return_date: dayjsDateProvider.dateNow(),
             })
         ).rejects.toEqual(
