@@ -86,6 +86,10 @@ class CarsRepository implements ICarsRepository {
             .setParameters({ id })
             .execute();
     }
+
+    async list(): Promise<Car[]> {
+        return this.repository.find();
+    }
 }
 
 export { CarsRepository };
