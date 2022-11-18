@@ -76,6 +76,10 @@ class CarsRepositoryInMemory implements ICarsRepository {
 
         this.cars[indexCar].available = available;
     }
+
+    async list(): Promise<Car[]> {
+        return this.cars;
+    }
 }
 
 export { CarsRepositoryInMemory };
