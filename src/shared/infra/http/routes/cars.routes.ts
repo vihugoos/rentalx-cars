@@ -4,6 +4,7 @@ import multer from "multer";
 import uploadConfig from "@config/upload-file";
 import { CreateCarSpecificationsController } from "@modules/cars/use-cases/car/create-car-specifications/CreateCarSpecificationsController";
 import { CreateCarController } from "@modules/cars/use-cases/car/create-car/CreateCarController";
+import { ListAllCarsController } from "@modules/cars/use-cases/car/list-all-cars/ListAllCarsController";
 import { ListAvailableCarsController } from "@modules/cars/use-cases/car/list-available-cars/ListAvailableCarsController";
 import { UploadCarImagesController } from "@modules/cars/use-cases/car/upload-car-images/UploadCarImagesController";
 import { ensureAdmin } from "@shared/infra/http/middlewares/ensureAdmin";
@@ -23,6 +24,14 @@ carsRoutes.post(
 
 // Route to return all available cars
 carsRoutes.get("/available", new ListAvailableCarsController().handle);
+
+// Route to list all cars
+carsRoutes.get(
+    "/all",
+    ensureAuthenticated,
+    ensureAdmin,
+    new ListAllCarsController().handle
+);
 
 // Route to create a new specification to the car
 carsRoutes.post(
