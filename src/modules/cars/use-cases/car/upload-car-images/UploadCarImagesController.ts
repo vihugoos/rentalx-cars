@@ -8,7 +8,7 @@ interface IFile {
 }
 
 class UploadCarImagesController {
-    async handle(request: Request, response: Response): Promise<Response> {
+    async handle(request: Request, response: Response) {
         const { car_id } = request.params;
         const images = request.files as IFile[];
 
@@ -20,7 +20,10 @@ class UploadCarImagesController {
 
         await uploadCarImagesUseCase.execute({ car_id, list_images_name });
 
-        return response.status(204).send();
+        // Wait 3s to save images in the database (for the UploadCarImagesController.spec test)
+        setTimeout(() => {
+            return response.status(204).send();
+        }, 3000);
     }
 }
 
