@@ -51,6 +51,12 @@ describe("Refresh Token Use Case", () => {
         expect(new_refresh_token).toBeTruthy();
     });
 
+    it("Should not be able to refresh a invalid token", async () => {
+        await expect(
+            refreshTokenUseCase.execute("token_invalid")
+        ).rejects.toEqual(new AppError("Invalid token!", 401));
+    });
+
     it("Should not be able to refresh a non-existent token", async () => {
         await expect(
             refreshTokenUseCase.execute(
