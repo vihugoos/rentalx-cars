@@ -62,4 +62,30 @@ describe("Devolution Rental Use Case", () => {
             devolutionRentalUseCase.execute("invalid_rental_id")
         ).rejects.toEqual(new AppError("Rental does not exists!"));
     });
+
+    it("Should be able to return a rental delayed", async () => {
+        const car = await carsRepositoryInMemory.create({
+            name: "Car Test 2",
+            description: "Car test 2 description",
+            daily_rate: 100,
+            license_plate: "ABC-2984",
+            fine_amount: 150,
+            brand: "JTest",
+            category_id: "1234",
+        });
+
+        // Create a rental already delayed (3 days)
+        const rental = await rentalsRepositoryInMemory.create({
+            user_id: "bb5fa9dc-c103-4aa4-a18a-26d000509dad",
+            car_id: car.id,
+            expected_return_date: dayjsDateProvider.addDays(-3),
+        });
+
+        await devolutionRentalUseCase.execute(rental.id);
+
+        const checkRental = await rentalsRepositoryInMemory.findById(rental.id);
+
+        // Total amount including the 3 days delay
+        expect(checkRental.total).toBe(550);
+    });
 });
