@@ -60,7 +60,7 @@ describe("Refresh Token Use Case", () => {
     it("Should not be able to refresh a non-existent token", async () => {
         await expect(
             refreshTokenUseCase.execute(
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZvZmVzdXZlQHB1ZXcuZ3UiLCJpYXQiOjE2NjgxMTMzMjQsImV4cCI6MTY3MDcwNTMyNCwic3ViIjoiMzlkYzJhZWMtZWNkYy00MTQ5LTllYzUtNzg0NWY5YjU5MGMyIn0.72zxDtQ-kAbLkJ9uegHwpDmRlZkavRgaQhnZgQm59vY"
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZvZmVzdXZlQHB1ZXcuZ3UiLCJpYXQiOjE2Njg5MTAyMzAsImV4cCI6MTY3MDIwNjIzMCwic3ViIjoiNDNmYWQwNzQtNjBjMi00MTEwLTgzMmMtNTQyOWE3ZTkyZGRhIn0.JeR2GIUxLX9CCJV9mIC0Vu6qeQrc26BmCb_wh8-sPnI"
             )
         ).rejects.toEqual(new AppError("Refresh token does not exists!"));
     });
