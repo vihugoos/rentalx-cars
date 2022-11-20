@@ -58,7 +58,7 @@ describe("Create Car Specifications Controller", () => {
     });
 
     it("Should be able to add a new specifications to the car", async () => {
-        const { refresh_token } = await authenticateUserUseCase.execute({
+        const { token } = await authenticateUserUseCase.execute({
             email: "admin@rentx.com",
             password: "admin_test",
         });
@@ -98,7 +98,7 @@ describe("Create Car Specifications Controller", () => {
                 ],
             })
             .set({
-                Authorization: `Bearer ${refresh_token}`,
+                Authorization: `Bearer ${token}`,
             });
 
         expect(response.status).toBe(201);

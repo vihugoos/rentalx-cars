@@ -49,7 +49,7 @@ describe("Create Specification Controller", () => {
     });
 
     it("Should be able to create a new specification", async () => {
-        const { refresh_token } = await authenticateUserUseCase.execute({
+        const { token } = await authenticateUserUseCase.execute({
             email: "admin@rentx.com",
             password: "admin_test",
         });
@@ -62,7 +62,7 @@ describe("Create Specification Controller", () => {
                 description: "Specification test description",
             })
             .set({
-                Authorization: `Bearer ${refresh_token}`,
+                Authorization: `Bearer ${token}`,
             });
 
         expect(response.status).toBe(201);

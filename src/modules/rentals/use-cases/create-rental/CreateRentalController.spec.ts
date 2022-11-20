@@ -57,7 +57,7 @@ describe("Create Rental Controller", () => {
 
         const user = await createUserUseCase.execute(newUser);
 
-        const { refresh_token } = await authenticateUserUseCase.execute({
+        const { token } = await authenticateUserUseCase.execute({
             email: newUser.email,
             password: newUser.password,
         });
@@ -85,7 +85,7 @@ describe("Create Rental Controller", () => {
                 expected_return_date: dayjsDateProvider.todayAdd24Hours(),
             })
             .set({
-                Authorization: `Bearer ${refresh_token}`,
+                Authorization: `Bearer ${token}`,
             });
 
         const updatedCar = await carsRepository.findById(car.id);

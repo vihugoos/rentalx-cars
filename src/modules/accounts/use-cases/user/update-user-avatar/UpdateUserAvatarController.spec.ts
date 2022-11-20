@@ -54,7 +54,7 @@ describe("Update User Avatar Controller", () => {
 
         await createUserUseCase.execute(user);
 
-        const { refresh_token } = await authenticateUserUseCase.execute({
+        const { token } = await authenticateUserUseCase.execute({
             email: user.email,
             password: user.password,
         });
@@ -64,7 +64,7 @@ describe("Update User Avatar Controller", () => {
             .patch("/users/avatar")
             .attach("avatar", avatar_image_path)
             .set({
-                Authorization: `Bearer ${refresh_token}`,
+                Authorization: `Bearer ${token}`,
             });
 
         expect(response.status).toBe(204);

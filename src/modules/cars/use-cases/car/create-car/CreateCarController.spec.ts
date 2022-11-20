@@ -53,7 +53,7 @@ describe("Create Car Controller", () => {
     });
 
     it("Should be able to create a new car", async () => {
-        const { refresh_token } = await authenticateUserUseCase.execute({
+        const { token } = await authenticateUserUseCase.execute({
             email: "admin@rentx.com",
             password: "admin_test",
         });
@@ -78,7 +78,7 @@ describe("Create Car Controller", () => {
             .post("/cars")
             .send(car)
             .set({
-                Authorization: `Bearer ${refresh_token}`,
+                Authorization: `Bearer ${token}`,
             });
 
         expect(response.status).toBe(201);

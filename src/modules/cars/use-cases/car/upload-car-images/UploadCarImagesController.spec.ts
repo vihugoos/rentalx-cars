@@ -75,7 +75,7 @@ describe("Upload Car Images Controller", () => {
     });
 
     it("Should be able to upload many images for the car", async () => {
-        const { refresh_token } = await authenticateUserUseCase.execute({
+        const { token } = await authenticateUserUseCase.execute({
             email: "admin@rentx.com",
             password: "admin_test",
         });
@@ -101,7 +101,7 @@ describe("Upload Car Images Controller", () => {
             .attach("images", ferrari_488_spider_1_path)
             .attach("images", ferrari_488_spider_2_path)
             .set({
-                Authorization: `Bearer ${refresh_token}`,
+                Authorization: `Bearer ${token}`,
             });
 
         // Upload images for the car (test UploadCarImagesController)
@@ -110,7 +110,7 @@ describe("Upload Car Images Controller", () => {
             .attach("images", ferrari_488_spider_1_path)
             .attach("images", ferrari_488_spider_2_path)
             .set({
-                Authorization: `Bearer ${refresh_token}`,
+                Authorization: `Bearer ${token}`,
             });
 
         const car_images = await carsImagesRepository.filterImagesByCarId(

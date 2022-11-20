@@ -52,7 +52,7 @@ describe("List Specifications Controller", () => {
     });
 
     it("Should be able to list all specifications created", async () => {
-        const { refresh_token } = await authenticateUserUseCase.execute({
+        const { token } = await authenticateUserUseCase.execute({
             email: "admin@rentx.com",
             password: "admin_test",
         });
@@ -71,7 +71,7 @@ describe("List Specifications Controller", () => {
         const response = await request(app)
             .get("/specifications")
             .set({
-                Authorization: `Bearer ${refresh_token}`,
+                Authorization: `Bearer ${token}`,
             });
 
         expect(response.status).toBe(200);

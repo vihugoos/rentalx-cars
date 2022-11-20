@@ -52,7 +52,7 @@ describe("List Users Controller", () => {
     });
 
     it("Should be able to get all users", async () => {
-        const { refresh_token } = await authenticateUserUseCase.execute({
+        const { token } = await authenticateUserUseCase.execute({
             email: "admin@rentx.com",
             password: "admin_test",
         });
@@ -75,7 +75,7 @@ describe("List Users Controller", () => {
         const response = await request(app)
             .get("/users")
             .set({
-                Authorization: `Bearer ${refresh_token}`,
+                Authorization: `Bearer ${token}`,
             });
 
         expect(response.status).toBe(200);
