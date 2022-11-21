@@ -10,7 +10,7 @@ import { ensureAuthenticated } from "@shared/infra/http/middlewares/ensureAuthen
 
 const usersRoutes = Router();
 
-const uploadAvatar = multer(uploadConfig.uploadFile("./tmp/avatar"));
+const uploadAvatar = multer(uploadConfig);
 
 // Route to create a new user
 usersRoutes.post(
