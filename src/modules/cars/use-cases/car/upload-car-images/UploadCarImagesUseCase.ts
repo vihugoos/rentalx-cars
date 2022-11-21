@@ -19,7 +19,7 @@ class UploadCarImagesUseCase {
     ) {}
 
     async execute({ car_id, list_images_name }: IRequest): Promise<void> {
-        // Delete car images from temp directory
+        // Delete car images from temp/cars local directory or from AWS S3
         await this.carsImagesRepository
             .filterImagesByCarId(car_id)
             .then((car_images) => {
@@ -36,6 +36,7 @@ class UploadCarImagesUseCase {
         // Delete car images from database
         await this.carsImagesRepository.deleteImagesByCarId(car_id);
 
+        // Upload new images to the car
         list_images_name.map(async (image) => {
             await this.storageProvider.save(image, "cars");
             await this.carsImagesRepository.create(car_id, image);
