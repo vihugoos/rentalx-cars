@@ -59,6 +59,14 @@ describe("Update User Avatar Controller", () => {
             password: user.password,
         });
 
+        // Create an user avatar
+        await request(app)
+            .patch("/users/avatar")
+            .attach("avatar", avatar_image_path)
+            .set({
+                Authorization: `Bearer ${token}`,
+            });
+
         // Update user avatar (test UpdateUserAvatarController)
         const response = await request(app)
             .patch("/users/avatar")
@@ -67,9 +75,10 @@ describe("Update User Avatar Controller", () => {
                 Authorization: `Bearer ${token}`,
             });
 
-        expect(response.status).toBe(204);
-
         const userWithAvatar = await usersRepository.findByEmail(user.email);
+
+        expect(response.status).toBe(204);
+        expect(userWithAvatar.avatar).toContain("avatar-image-test.jpg");
 
         await deleteFile(`./tmp/avatar/${userWithAvatar.avatar}`);
     });
