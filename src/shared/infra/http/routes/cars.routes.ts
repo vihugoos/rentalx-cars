@@ -12,7 +12,7 @@ import { ensureAuthenticated } from "@shared/infra/http/middlewares/ensureAuthen
 
 const carsRoutes = Router();
 
-const upload = multer(uploadConfig.uploadFile("./tmp/cars"));
+const upload = multer(uploadConfig);
 
 // Route to create a new car
 carsRoutes.post(
