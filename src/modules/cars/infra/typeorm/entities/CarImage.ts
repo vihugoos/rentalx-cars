@@ -1,3 +1,4 @@
+import { Expose } from "class-transformer";
 import {
     Column,
     Entity,
@@ -29,6 +30,24 @@ class CarImage implements ICarImage {
 
     @CreateDateColumn()
     created_at: Date;
+
+    @Expose({ name: "image_url" })
+    image_url(): string {
+        if (this.image_name) {
+            switch (process.env.DISK_STORAGE) {
+                case "local":
+                    return `${process.env.APP_API_URL}/cars/${this.image_name}`;
+
+                case "s3":
+                    return `${process.env.AWS_BUCKET_URL}/cars/${this.image_name}`;
+
+                default:
+                    return null;
+            }
+        } else {
+            return null;
+        }
+    }
 
     constructor() {
         this.id = uuidV4();
