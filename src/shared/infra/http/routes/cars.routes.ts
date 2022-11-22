@@ -6,6 +6,7 @@ import { CreateCarSpecificationsController } from "@modules/cars/use-cases/car/c
 import { CreateCarController } from "@modules/cars/use-cases/car/create-car/CreateCarController";
 import { ListAllCarsController } from "@modules/cars/use-cases/car/list-all-cars/ListAllCarsController";
 import { ListAvailableCarsController } from "@modules/cars/use-cases/car/list-available-cars/ListAvailableCarsController";
+import { ListCarImagesController } from "@modules/cars/use-cases/car/list-car-images/ListCarImagesController";
 import { UploadCarImagesController } from "@modules/cars/use-cases/car/upload-car-images/UploadCarImagesController";
 import { ensureAdmin } from "@shared/infra/http/middlewares/ensureAdmin";
 import { ensureAuthenticated } from "@shared/infra/http/middlewares/ensureAuthenticated";
@@ -48,6 +49,13 @@ carsRoutes.post(
     ensureAdmin,
     upload.array("images"),
     new UploadCarImagesController().handle
+);
+
+// Route to list car images
+carsRoutes.get(
+    "/images/:car_id",
+    ensureAuthenticated,
+    new ListCarImagesController().handle
 );
 
 export { carsRoutes };
