@@ -6,6 +6,7 @@ import { v4 as uuidV4 } from "uuid";
 import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
 import { UsersTokensRepository } from "@modules/accounts/infra/typeorm/repositories/UsersTokensRepository";
 import { AuthenticateUserUseCase } from "@modules/accounts/use-cases/user/authenticate-user/AuthenticateUserUseCase";
+import { CategoriesRepository } from "@modules/cars/infra/typeorm/repositories/CategoriesRepository";
 import { DayjsDateProvider } from "@shared/container/providers/date-provider/implementations/DayjsDateProvider";
 import { app } from "@shared/infra/http/app";
 import createConnection from "@shared/infra/typeorm/";
@@ -14,6 +15,7 @@ let usersRepository: UsersRepository;
 let usersTokensRepository: UsersTokensRepository;
 let dayjsDateProvider: DayjsDateProvider;
 let authenticateUserUseCase: AuthenticateUserUseCase;
+let categoriesRepository: CategoriesRepository;
 let connection: Connection;
 
 const categories_csv_path = `${__dirname}/categories-test.csv`;
@@ -43,6 +45,7 @@ describe("Import Categories Controller", () => {
             usersTokensRepository,
             dayjsDateProvider
         );
+        categoriesRepository = new CategoriesRepository();
     });
 
     afterAll(async () => {
@@ -64,6 +67,9 @@ describe("Import Categories Controller", () => {
                 Authorization: `Bearer ${token}`,
             });
 
+        const categories = await categoriesRepository.list();
+
         expect(response.status).toBe(204);
+        expect(categories.length).toBe(4);
     });
 });

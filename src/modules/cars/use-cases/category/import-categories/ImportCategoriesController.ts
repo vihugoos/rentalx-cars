@@ -4,7 +4,7 @@ import { container } from "tsyringe";
 import { ImportCategoriesUseCase } from "./ImportCategoriesUseCase";
 
 class ImportCategoriesController {
-    async handle(request: Request, response: Response): Promise<Response> {
+    async handle(request: Request, response: Response) {
         const { file } = request;
 
         const importCategoriesUseCase = container.resolve(
@@ -13,7 +13,10 @@ class ImportCategoriesController {
 
         await importCategoriesUseCase.execute(file);
 
-        return response.status(204).send();
+        // Wait 3s to create categories in the database (for the ImportCategoriesController.spec test)
+        setTimeout(() => {
+            return response.status(204).send();
+        }, 3000);
     }
 }
 
