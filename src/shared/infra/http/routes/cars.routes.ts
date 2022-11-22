@@ -52,10 +52,6 @@ carsRoutes.post(
 );
 
 // Route to list car images
-carsRoutes.get(
-    "/images/:car_id",
-    ensureAuthenticated,
-    new ListCarImagesController().handle
-);
+carsRoutes.get("/images/:car_id", new ListCarImagesController().handle);
 
 export { carsRoutes };
