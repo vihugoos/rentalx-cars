@@ -40,7 +40,7 @@ app.use(
 
         return response.status(500).json({
             status: "Error",
-            message: `Internal Server Error - ${err.message}`,
+            message: `Internal Server Error (500) - ${err.message}`,
         });
     }
 );
