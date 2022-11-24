@@ -31,7 +31,7 @@ class EtherealMailProvider implements IMailProvider {
     async sendMail(
         to: string,
         subject: string,
-        variables: any,
+        variables: unknown,
         path: string
     ): Promise<void> {
         const templateFileContent = fs.readFileSync(path).toString("utf-8");
@@ -42,13 +42,13 @@ class EtherealMailProvider implements IMailProvider {
 
         const message = await this.client.sendMail({
             to,
-            from: "Rentx <noreplay@rentx.com>",
+            from: "Rentx <no-reply@api-rentx.com>",
             subject,
             html: templateHTML,
         });
 
-        // console.log(`Message sent: ${message.messageId}`);
-        // console.log(`Preview URL: ${nodemailer.getTestMessageUrl(message)}`);
+        console.log(`Message sent: ${message.messageId}`);
+        console.log(`Preview URL: ${nodemailer.getTestMessageUrl(message)}`);
     }
 }
 
