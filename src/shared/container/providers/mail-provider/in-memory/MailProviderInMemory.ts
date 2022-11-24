@@ -1,12 +1,12 @@
 import { IMailProvider } from "../IMailProvider";
 
 class MailProviderInMemory implements IMailProvider {
-    private message: any[] = [];
+    private message: unknown[] = [];
 
     async sendMail(
         to: string,
         subject: string,
-        variables: any,
+        variables: unknown,
         path: string
     ): Promise<void> {
         this.message.push({
