@@ -43,7 +43,7 @@ class SendForgotPasswordMailUseCase {
 
         const token = uuidV4();
 
-        const expires_date = this.dateProvider.addHours(3);
+        const expires_date = this.dateProvider.todayAdd24Hours();
 
         // To save a token in the database
         await this.usersTokensRepository.create({
@@ -54,12 +54,13 @@ class SendForgotPasswordMailUseCase {
 
         const variables = {
             name: user.name,
+            email: user.email,
             link: `${process.env.FORGOT_MAIL_URL}${token}`,
         };
 
         await this.mailProvider.sendMail(
             email,
-            "Password recovery",
+            "Password Recovery",
             variables,
             templatePath
         );
