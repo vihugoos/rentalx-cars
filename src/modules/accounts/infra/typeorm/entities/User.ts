@@ -35,7 +35,7 @@ class User implements IUser {
         if (this.avatar) {
             switch (process.env.DISK_STORAGE) {
                 case "local":
-                    return `${process.env.APP_API_URL}/avatar/${this.avatar}`;
+                    return `${process.env.API_BASE_URL}/avatar/${this.avatar}`;
 
                 case "s3":
                     return `${process.env.AWS_BUCKET_URL}/avatar/${this.avatar}`;

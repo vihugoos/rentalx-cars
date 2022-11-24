@@ -36,7 +36,7 @@ class CarImage implements ICarImage {
         if (this.image_name) {
             switch (process.env.DISK_STORAGE) {
                 case "local":
-                    return `${process.env.APP_API_URL}/cars/${this.image_name}`;
+                    return `${process.env.API_BASE_URL}/cars/${this.image_name}`;
 
                 case "s3":
                     return `${process.env.AWS_BUCKET_URL}/cars/${this.image_name}`;
