@@ -3,7 +3,7 @@ version: "3.9"
 services:
     database: 
         image: postgres
-        container_name: database_postgres
+        container_name: database
         restart: always
         ports:
             - ${DATABASE_PORT}:5432
