@@ -1,4 +1,5 @@
-const FILE_EXTENSION = process.env.BASE_FOLDER === "src" ? ".ts" : ".js";
+const BASE_FOLDER = process.env.ENVIRONMENT === "dev" ? "src" : "dist";
+const FILE_EXTENSION = process.env.ENVIRONMENT === "dev" ? ".ts" : ".js";
 
 module.exports = {
     type: "postgres",
@@ -7,9 +8,9 @@ module.exports = {
     database: process.env.DATABASE,
     username: process.env.DATABASE_USERNAME,
     password: process.env.DATABASE_PASSWORD,
-    migrations: [`./${process.env.BASE_FOLDER}/shared/infra/typeorm/migrations/*${FILE_EXTENSION}`],
-    entities: [`./${process.env.BASE_FOLDER}/modules/**/entities/*${FILE_EXTENSION}`],
+    migrations: [`./${BASE_FOLDER}/shared/infra/typeorm/migrations/*${FILE_EXTENSION}`],
+    entities: [`./${BASE_FOLDER}/modules/**/entities/*${FILE_EXTENSION}`],
     cli: {
-        migrationsDir: `./${process.env.BASE_FOLDER}/shared/infra/typeorm/migrations/`,
+        migrationsDir: `./${BASE_FOLDER}/shared/infra/typeorm/migrations/`,
     },
 };
