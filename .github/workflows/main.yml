@@ -1,7 +1,9 @@
-name: CI
+name: CI/CD
 
 on:
   push:
+    branches: [ "main" ]
+  pull_request:
     branches: [ "main" ]
 
 jobs:
@@ -22,7 +24,7 @@ jobs:
       - name: Build
         run: yarn build
         
-      - name: Copy all files to the remote instance AWS
+      - name: Copy all files to the remote instance EC2 AWS
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -32,7 +34,7 @@ jobs:
           source: "., !node_modules"
           target: "~/app/rentx-cars"
       
-      - name: Update API 
+      - name: Update API
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -44,4 +46,5 @@ jobs:
             yarn
             ./node_modules/.bin/typeorm migration:run
             docker restart database
+            docker restart rate_limiter_storage
             pm2 restart api_rentx
