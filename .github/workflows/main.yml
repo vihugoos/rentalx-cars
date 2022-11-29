@@ -43,4 +43,5 @@ jobs:
             cd ~/app/rentx-cars
             yarn
             ./node_modules/.bin/typeorm migration:run
+            docker restart database
             pm2 restart api_rentx
