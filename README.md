@@ -1,3 +1,5 @@
+[![CI/CD](https://github.com/vihugoos/rentx-cars/actions/workflows/main.yml/badge.svg)](https://github.com/vihugoos/rentx-cars/actions/workflows/main.yml)
+
 ## RentX Cars - Requirements Documentation. 
 
 Application developed for car rental. 
