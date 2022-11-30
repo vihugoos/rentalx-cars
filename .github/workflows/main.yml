@@ -9,6 +9,21 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    services:
+      database:
+        image: postgres
+        env:
+          POSTGRES_USER: docker
+          POSTGRES_PASSWORD: ignite
+          POSTGRES_DB: rentx
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6544:5432
     
     steps:
       - uses: actions/checkout@v3
