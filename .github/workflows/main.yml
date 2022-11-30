@@ -46,5 +46,4 @@ jobs:
             yarn
             ./node_modules/.bin/typeorm migration:run
             docker restart database
-            docker restart rate_limiter_storage
             pm2 restart api_rentx
