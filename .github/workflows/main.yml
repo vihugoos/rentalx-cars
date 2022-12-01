@@ -14,8 +14,8 @@ jobs:
             postgres:
                 image: postgres
                 env:
-                    POSTGRES_USER: docker
-                    POSTGRES_PASSWORD: ignite
+                    POSTGRES_USER: test_user
+                    POSTGRES_PASSWORD: password
                     POSTGRES_DB: rentx_test
                 options: >-
                     --health-cmd pg_isready
@@ -23,7 +23,7 @@ jobs:
                     --health-timeout 5s
                     --health-retries 5
                 ports:
-                    - 6544:5432
+                    - 5432:5432
 
             redis:
                 image: redis:alpine
@@ -33,17 +33,17 @@ jobs:
                     --health-timeout 5s
                     --health-retries 5
                 ports:
-                    - 5480:6379
+                    - 6379:6379
 
         steps:
           - uses: actions/checkout@v3
         
-          - name: Setup Node.js
+          - name: Setup node.js
             uses: actions/setup-node@v3
             with:
                 node-version: 18
             
-          - name: Install Dependencies
+          - name: Install dependencies
             run: yarn
 
           - name: Create .env file
@@ -53,21 +53,21 @@ jobs:
                 echo "DISK_STORAGE=local" >> .env
                 echo "MAIL_PROVIDER=ethereal" >> .env
                 echo "ENVIRONMENT=dev" >> .env
-                echo "DATABASE=rentx" >> .env
-                echo "DATABASE_USERNAME=docker" >> .env
-                echo "DATABASE_PASSWORD=ignite" >> .env
-                echo "DATABASE_PORT=6544" >> .env
+                echo "DATABASE=rentx_test" >> .env
+                echo "DATABASE_USERNAME=test_user" >> .env
+                echo "DATABASE_PASSWORD=password" >> .env
+                echo "DATABASE_PORT=5432" >> .env
                 echo "REDIS_HOST=localhost" >> .env
-                echo "REDIS_PORT=5480" >> .env
-                echo "JWT_SECRET_TOKEN=073cce591f4f6ee963c23e36b634b731" >> .env
-                echo "JWT_SECRET_REFRESH_TOKEN=0bd87e27f2b0b0b17bf1b8e674ef3a86" >> .env
+                echo "REDIS_PORT=6379" >> .env
+                echo "JWT_SECRET_TOKEN=fec379f309217e47c304e237be824f75" >> .env
+                echo "JWT_SECRET_REFRESH_TOKEN=6f8818d507e2355e4b9fbb4356c03f16" >> .env
 
           - name: Create avatar and cars folder 
             run: |
                 mkdir tmp/avatar
                 mkdir tmp/cars    
 
-          - name: Run the tests
+          - name: Run tests
             run: yarn test
 
           - name: Delete .env file
