@@ -7,7 +7,7 @@
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect=0.0.0.0:9229 --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "test": "NODE_ENV=test jest --runInBand --detectOpenHandles",
+    "test": "NODE_ENV=test NODE_OPTIONS=--max-old-space-size=3100 jest --runInBand --detectOpenHandles --clearMocks --forceExit",
     "seed:admin": "ts-node-dev -r tsconfig-paths/register src/shared/infra/typeorm/seed/create-admin.ts"
   },
   "dependencies": {
