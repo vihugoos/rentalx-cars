@@ -33,7 +33,7 @@ jobs:
                     --health-timeout 5s
                     --health-retries 5
                 ports:
-                - 5480:6379
+                    - 5480:6379
 
         steps:
           - uses: actions/checkout@v3
@@ -45,7 +45,29 @@ jobs:
             
           - name: Install Dependencies
             run: yarn
-            
+
+          - name: Create .env file
+            run: |
+                touch .env
+                echo "API_BASE_URL='http://localhost:3333'" >> .env
+                echo "DISK_STORAGE=local" >> .env
+                echo "MAIL_PROVIDER=ethereal" >> .env
+                echo "ENVIRONMENT=dev" >> .env
+                echo "DATABASE=rentx" >> .env
+                echo "DATABASE_USERNAME=docker" >> .env
+                echo "DATABASE_PASSWORD=ignite" >> .env
+                echo "DATABASE_PORT=6544" >> .env
+                echo "REDIS_HOST=localhost" >> .env
+                echo "REDIS_PORT=5480" >> .env
+                echo "JWT_SECRET_TOKEN=073cce591f4f6ee963c23e36b634b731" >> .env
+                echo "JWT_SECRET_REFRESH_TOKEN=0bd87e27f2b0b0b17bf1b8e674ef3a86" >> .env
+
+          - name: Run the tests
+            run: yarn test
+
+          - name: Delete .env file
+            run: rm .env
+
           - name: Build
             run: yarn build
             
