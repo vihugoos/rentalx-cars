@@ -58,10 +58,27 @@ describe("Refresh Token Use Case", () => {
     });
 
     it("Should not be able to refresh a non-existent token", async () => {
+        await createUserUseCase.execute({
+            name: "Birdie Harris",
+            email: "tam@no.de",
+            password: "12345",
+            driver_license: "2554671661",
+        });
+
+        const { refresh_token } = await authenticateUserUseCase.execute({
+            email: "tam@no.de",
+            password: "12345",
+        });
+
+        const info_token =
+            await usersTokensRepositoryInMemory.findByRefreshToken(
+                refresh_token
+            );
+
+        await usersTokensRepositoryInMemory.deleteById(info_token.id);
+
         await expect(
-            refreshTokenUseCase.execute(
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZvZmVzdXZlQHB1ZXcuZ3UiLCJpYXQiOjE2Njg5MTAyMzAsImV4cCI6MTY3MDIwNjIzMCwic3ViIjoiNDNmYWQwNzQtNjBjMi00MTEwLTgzMmMtNTQyOWE3ZTkyZGRhIn0.JeR2GIUxLX9CCJV9mIC0Vu6qeQrc26BmCb_wh8-sPnI"
-            )
+            refreshTokenUseCase.execute(refresh_token)
         ).rejects.toEqual(new AppError("Refresh token does not exists!"));
     });
 });
