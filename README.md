@@ -50,7 +50,7 @@ Application developed for car rental.
 ---
 
 
-### Car Specification 
+### Car Specifications 
 
 **RF** (<i>Functional Requirements</i>)
 - It must be possible to register a new specification for a car.
@@ -65,7 +65,7 @@ Application developed for car rental.
 ---
 
 
-### Car Image 
+### Car Images 
 
 **RF** (<i>Functional Requirements</i>)
 - It must be possible to register car image. 
@@ -147,7 +147,7 @@ Application developed for car rental.
 ---
 
 
-### User Rental Listing
+### User Rentals Listing
 
 **RF** (<i>Functional Requirements</i>)
 - It must be possible to search all rentals made by user. 
