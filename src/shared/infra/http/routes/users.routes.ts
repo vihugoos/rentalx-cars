@@ -14,12 +14,7 @@ const usersRoutes = Router();
 const uploadAvatar = multer(uploadConfig);
 
 // Route to create a new user
-usersRoutes.post(
-    "/",
-    ensureAuthenticated,
-    ensureAdmin,
-    new CreateUserController().handle
-);
+usersRoutes.post("/", new CreateUserController().handle);
 
 // Route to update an avatar image
 usersRoutes.patch(
