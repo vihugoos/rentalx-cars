@@ -1,6 +1,7 @@
 [![CI/CD](https://github.com/vihugoos/rentx-cars/actions/workflows/main.yml/badge.svg)](https://github.com/vihugoos/rentx-cars/actions/workflows/main.yml)
+[![codecov](https://codecov.io/gh/vihugoos/rentx-cars/branch/main/graph/badge.svg?token=NXUK7PXBKV)](https://codecov.io/gh/vihugoos/rentx-cars)
 
-## RentX Cars - Requirements Documentation. 
+## Rentx Cars - Requirements Documentation. 
 
 Application developed for car rental. 
 
@@ -25,29 +26,50 @@ Application developed for car rental.
 - It must be possible to list all available cars by car name.
 - It must be possible to list all available cars by brand.
 - It must be possible to list all available cars by category id.
+- It must be possible to list all cars.
 
 **RN** (<i>Business Rules</i>)
-- The user does not need to be logged into the system.
+- To list available cars, the user does not need to be logged into the system.
+- To list all cars, the user must be an administrator.
 
 ---
 
 
-### Car Specification Registration 
+### Car Category 
 
 **RF** (<i>Functional Requirements</i>)
-- It must be possible to register a specification for a car.
+- It must be possible to register a new category.
+- It must be possible to import a CSV with many categories to create.
+- It must be possible to list all categories.
 
 **RN** (<i>Business Rules</i>)
-- It must not be possible to register a specification for an unregistered car. 
+- It must not be possible to register a new category for an existing category (with same name).
 - The user responsible for the registration must be an administrator user.
+- To list all categories, the user does not need to be logged into the system.
 
 ---
 
 
-### Car Image Registration
+### Car Specification 
+
+**RF** (<i>Functional Requirements</i>)
+- It must be possible to register a new specification for a car.
+- It must be possible to list all specifications.
+
+**RN** (<i>Business Rules</i>)
+- It must not be possible to register a new specification for an existing specification (with same name).
+- It must not be possible to register a specification for an unregistered car. 
+- The user responsible for the registration must be an administrator user.
+- To list all specifications, the user must be an administrator. 
+
+---
+
+
+### Car Image 
 
 **RF** (<i>Functional Requirements</i>)
 - It must be possible to register car image. 
+- It must be able to list all car images.
 
 **RNF** (<i>Non-functional requirements</i>)
 - Use the multer library to upload the files. 
@@ -55,23 +77,26 @@ Application developed for car rental.
 **RN** (<i>Business Rules</i>)
 - The user must able to register more than one image for the same car. 
 - The user responsible for the registration must be an administrator user. 
+- To list all car images, the user must be an administrator.
 
 ---
 
 
-### Car Rental 
+### Car Rental Registration 
 
 **RF** (<i>Functional Requirements</i>)
-- It must be possible to register a rental. 
+- It must be possible to register a new rental. 
 
 **RN** (<i>Business Rules</i>)
 - The rental must have a minimum duration of 24 hours. 
+- It must not to be possible to register a new rental for a non-existent car.
 - It must not be possible to register a new rental if it's already open for the same user. 
 - It must not be possible to register a new rental if it's already open for the same car. 
 - The user must be logged into the application.
 - After making a rental, the status of the car must be changed to unavailable.
 
 ---
+
 
 ### Car Devolution
 
@@ -80,6 +105,7 @@ Application developed for car rental.
 
 **RN** (<i>Business Rules</i>)
 - If the car returns with less than 24 hours, it must be charged for the full day.
+- It must not be possible to return a non-existent rental.
 - After the return, the car must be released for another rental.
 - After the return, the user must be released for another rental.
 - After the return, the rent total must be calculated.
@@ -89,17 +115,25 @@ Application developed for car rental.
 
 --- 
 
-### User Rental Listing
+
+### Users
 
 **RF** (<i>Functional Requirements</i>)
-- It must be possible to search all rentals made by user. 
+- It must be possible to create a new user.
+- It must be possible to authenticate a user to the application.
+- It must be possible to upload a new profile picture for the user (avatar).
+- It must be possible to show all information about the user.
+- It must to possible to list all users.
 
 **RN** (<i>Business Rules</i>)
-- The user must be logged into the application.
+- It must not be possible to create a new user with an existing email.
+- To create a new user, the user must not be logged into the application. 
+- To list all users, the user must be an administrator.
 
 ---
 
-### Password recovery
+
+### User Password Recovery
 
 **RF** (<i>Functional Requirements</i>)
 - It must be possible for the user to recover the password by informing the email.
@@ -108,5 +142,15 @@ Application developed for car rental.
 
 **RN** (<i>Business Rules</i>)
 - The user must enter a new password.
-- The link sent for password recovery must expire in 3 hours.
+- The link sent for password recovery must expire in 24 hours.
 
+---
+
+
+### User Rental Listing
+
+**RF** (<i>Functional Requirements</i>)
+- It must be possible to search all rentals made by user. 
+
+**RN** (<i>Business Rules</i>)
+- The user must be logged into the application.
