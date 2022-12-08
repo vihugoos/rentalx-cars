@@ -1,5 +1,56 @@
+<div id="top"> </div>
+
 [![CI/CD](https://github.com/vihugoos/rentx-cars/actions/workflows/main.yml/badge.svg)](https://github.com/vihugoos/rentx-cars/actions/workflows/main.yml)
 [![codecov](https://codecov.io/gh/vihugoos/rentx-cars/branch/main/graph/badge.svg?token=NXUK7PXBKV)](https://codecov.io/gh/vihugoos/rentx-cars)
+
+
+<!---- PROJECT LOGO ----> 
+<div align="center">
+    
+  <h2 align="center"> 
+    Rentx Cars - Server API 
+  </h2>
+  
+  <p align="center">
+    A complete RESTful API for car rentals, developed with Node.js <br/>
+    Explore <a href="https://nodejs.org/en/docs/">Node.js</a> docs &#187; <br/> <br/>
+    <a href="https://api-rentx.com/"> Deployment URL </a> &nbsp;•&nbsp;
+    <a href="https://github.com/vihugoos/rentx-cars/issues"> Report Bug </a> &nbsp;•&nbsp;
+    <a href="https://github.com/vihugoos/rentx-cars/issues"> Request Feature </a>
+  </p>
+</div>
+
+
+<!---- TABLE OF CONTENTS ----> 
+<details>
+  <summary> Table of Contents </summary>
+  <ol>
+    <li>
+      <a href="#about-the-project"> About The Project </a>
+      <ul>
+        <li><a href="#built-with"> Built With </a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started"> Getting Started </a>
+      <ul>
+        <li><a href="#prerequisites"> Prerequisites </a></li>
+        <li><a href="#installation"> Installation </a></li>
+      </ul>
+    </li>
+    <li><a href="#usage"> Usage </a></li>
+    <li><a href="#contributing"> Contributing </a></li>
+    <li><a href="#contact"> Contact </a></li>
+  </ol>
+</details>
+
+
+<!---- THE PROJECT ---->
+## About The Project 
+
+<img src="https://user-images.githubusercontent.com/44311634/206552225-a6c4db19-a7d1-46d2-8b4d-f38eb14d2fab.png" align="center" alt="Project Home Page">
+A complete RESTful API for car rentals, following SOLID principles and Clean Architecture, to be maintainable and scalable. As far as possible, concepts of high cohesion (function) and low coupling (data coupling) were applied, in addition to dependency injections, database using docker and unit and integration tests using Jest. 
+
 
 ## Rentx Cars - Requirements Documentation. 
 
@@ -154,3 +205,5 @@ Application developed for car rental.
 
 **RN** (<i>Business Rules</i>)
 - The user must be logged into the application.
+
+<p align="right"><a href="#top"> &#129045; back to top </a></p>
