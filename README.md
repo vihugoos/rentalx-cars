@@ -187,7 +187,7 @@ With the installation complete, we can start the project.
 
 ## Requirements Documentation 
 
-Application developed for car rental. 
+A complete application specification, with all functional and non-functional requirements and business rules.
 
 ### Cars Registration 
 
