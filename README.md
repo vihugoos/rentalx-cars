@@ -49,7 +49,56 @@
 ## About The Project 
 
 <img src="https://user-images.githubusercontent.com/44311634/206552225-a6c4db19-a7d1-46d2-8b4d-f38eb14d2fab.png" align="center" alt="Project Home Page">
-A complete RESTful API for car rentals, following SOLID principles and Clean Architecture, to be maintainable and scalable. As far as possible, concepts of high cohesion (function) and low coupling (data coupling) were applied, in addition to dependency injections, database using docker and unit and integration tests using Jest. 
+A complete RESTful API for car rentals, following SOLID principles and Clean Architecture, to be maintainable and scalable. As far as possible, concepts of high cohesion (function) and low coupling (data coupling) were applied, in addition to dependency injections, providers, database using docker and unit and integration tests using Jest. User avatar and car images stored in an AWS S3 bucket.
+
+
+### Built With 
+
+<div style="display: inline_block">
+    <!-- Icon Node.js --> 
+    <a href="https://nodejs.org/en/"> 
+      <img align="center" alt="Icon-Node.js" height="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"> 
+    </a> &nbsp;
+    <!-- Icon Yarn --> 
+    <a href="https://yarnpkg.com/"> 
+      <img align="center" alt="Icon-Yarn" height="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/yarn/yarn-original.svg"> 
+    </a> &nbsp;
+    <!-- Icon TypeScript --> 
+    <a href="https://www.typescriptlang.org/"> 
+      <img align="center" alt="Icon-TypeScript" height="34" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"> 
+    </a> &nbsp;
+    <!-- Icon Docker -->
+    <a href="https://www.docker.com/"> 
+      <img align="center" alt="Icon-Docker" height="55" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"> 
+    </a> &nbsp;
+    <!-- Icon PostgreSQL --> 
+    <a href="https://www.postgresql.org/"> 
+      <img align="center" alt="Icon-PostgreSQL" height="37" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-plain.svg"> 
+    </a> &nbsp;
+    <!-- Icon TypeORM --> 
+    <a href="https://typeorm.io/"> 
+      <img align="center" alt="Icon-TypeORM" height="48" src="https://user-images.githubusercontent.com/44311634/206829885-5dc2e3bc-7598-4a85-bebc-7b80a8136c60.png"> 
+    </a> &nbsp;
+    <!-- Icon Express --> 
+    <a href="https://expressjs.com/"> 
+      <img align="center" alt="Icon-Express" height="35" src="https://user-images.githubusercontent.com/44311634/178337147-61b1e696-b4ef-4f78-8151-c3fb2597050a.png"> 
+    </a> &nbsp;
+    <!-- Icon Jest --> 
+    <a href="https://jestjs.io/"> 
+      <img align="center" alt="Icon-Jest" height="33" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg"> 
+    </a> &nbsp;
+    <!-- Icon Babel --> 
+    <a href="https://babeljs.io/"> 
+      <img align="center" alt="Icon-Jest" height="60" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/babel/babel-original.svg"> 
+    </a> &nbsp;
+    <!-- Icon AWS --> 
+    <a href="https://aws.amazon.com/"> 
+      <img align="center" alt="Icon-Jest" height="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg"> 
+    </a> 
+</div>
+
+<br/>
+<br/>
 
 
 ## Rentx Cars - Requirements Documentation. 
