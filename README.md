@@ -121,7 +121,7 @@ A complete RESTful API for car rentals, following SOLID principles and Clean Arc
 
 To get started, you need to have <strong>Node.js 18+</strong> installed on your machine, for more information visit <a href="https://nodejs.org/en/download/"> Node.js Downloads</a>. You will also need to have <strong>Docker</strong> and <strong>Docker Compose</strong> installed, for more information visit <a href="https://docs.docker.com/engine/install/">Docker Engine Install</a> and <a href="https://docs.docker.com/compose/install/linux/"> Docker Compose Plugin Install </a>. 
 
-<strong>Obs:</strong> This guide will only serve to run the project locally (development environment).
+<strong>Obs:</strong> This guide will only serve to run the project locally (development environment), initially based on linux systems.
 
 
 ### Prerequisites 
@@ -143,19 +143,24 @@ Other than node.js and docker installed, no prerequisites are needed to install 
    
    <strong>WARNING:</strong> Credentials are for testing purposes only, please change them in the future.
    
-    ```cmd
-   echo "API_BASE_URL='http://localhost:3333'" > .env
-   echo "DISK_STORAGE=local" >> .env
-   echo "MAIL_PROVIDER=ethereal" >> .env
-   echo "ENVIRONMENT=dev" >> .env
-   echo "DATABASE=rentx_test" >> .env
-   echo "DATABASE_USERNAME=user_test" >> .env
-   echo "DATABASE_PASSWORD=12345" >> .env
-   echo "DATABASE_PASSWORD=6342" >> .env
-   echo "REDIS_HOST=localhost" >> .env
-   echo "REDIS_PORT=5385" >> .env
-   echo "JWT_SECRET_TOKEN=ec9bb4116d5a4c0023a690343c7e64a1" >> .env
-   echo "JWT_SECRET_REFRESH_TOKEN=056104641cb83398798c3f188a548040" >> .env
+   ```bash
+   cat > .env << EOF
+   API_BASE_URL='http://localhost:3333' 
+   DISK_STORAGE=local 
+   MAIL_PROVIDER=ethereal 
+   ENVIRONMENT=dev 
+
+   DATABASE=rentx_test 
+   DATABASE_USERNAME=user_test 
+   DATABASE_PASSWORD=12345 
+   DATABASE_PASSWORD=6342 
+
+   REDIS_HOST=localhost 
+   REDIS_PORT=5385 
+
+   JWT_SECRET_TOKEN=ec9bb4116d5a4c0023a690343c7e64a1 
+   JWT_SECRET_REFRESH_TOKEN=056104641cb83398798c3f188a548040 
+   EOF
    ```
 4. Create avatar and cars folder
    ```cmd
