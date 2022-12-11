@@ -139,7 +139,7 @@ Other than node.js and docker installed, no prerequisites are needed to install 
    ```cmd
    yarn install
    ```
-3. Create an `.env` file with environment variables for development (<i>copy all commands at once</i>)
+3. Create an `.env` file with environment variables for development 
    
    <strong>WARNING:</strong> Credentials are for testing purposes only, please change them in the future.
    
@@ -150,10 +150,10 @@ Other than node.js and docker installed, no prerequisites are needed to install 
    MAIL_PROVIDER=ethereal 
    ENVIRONMENT=dev 
 
-   DATABASE=rentx_test 
+   DATABASE=rentx
    DATABASE_USERNAME=user_test 
    DATABASE_PASSWORD=12345 
-   DATABASE_PASSWORD=6342 
+   DATABASE_PORT=6443
 
    REDIS_HOST=localhost 
    REDIS_PORT=5385 
@@ -164,7 +164,7 @@ Other than node.js and docker installed, no prerequisites are needed to install 
    ```
 4. Create avatar and cars folder
    ```cmd
-   mkdir tmp/avatar
+   mkdir tmp/avatar | 
    mkdir tmp/cars 
    ```
 4. Create database services in docker containers 
@@ -186,8 +186,31 @@ With the installation complete, we can start the project.
    ```bash
    yarn run dev  
    ```
-<br/> <br/>
 
+
+<!---- TESTS SETUP ----> 
+## Tests
+
+To be able to run all the tests, follow the commands below:
+
+1. Open and connect terminal-based front-end for PostgreSQL (password: 12345)
+   ```cmd
+   psql -h localhost -p 6443 -U user_test -W rentx
+   ```
+2. Run the query
+   ```sql
+   CREATE DATABASE rentx_test;
+   ```
+3. Quit psql
+   ```cmd
+   \q
+   ```
+4. Run all test
+   ```cmd
+   yarn test 
+   ```
+   
+<br/> <br/>
 
 
 ## Requirements Documentation 
