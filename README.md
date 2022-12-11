@@ -107,6 +107,10 @@ A complete RESTful API for car rentals, following SOLID principles and Clean Arc
     <a href="https://babeljs.io/"> 
       <img align="center" alt="Icon-Jest" height="58" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/babel/babel-original.svg"> 
     </a> &nbsp;
+    <!-- Icon Ubuntu --> 
+    <a href="https://ubuntu.com/"> 
+      <img align="center" alt="Icon-Ubuntu" height="36" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ubuntu/ubuntu-plain.svg"> 
+    </a> &nbsp;
     <!-- Icon AWS --> 
     <a href="https://aws.amazon.com/"> 
       <img align="center" alt="Icon-Jest" height="38" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg"> 
