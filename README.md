@@ -6,6 +6,7 @@
 
 <!---- PROJECT LOGO ----> 
 <div align="center">
+  <img src="https://user-images.githubusercontent.com/44311634/206886221-17f1987d-717b-4729-8d53-efed02f33135.png" alt="Logo" height="175" />
     
   <h2 align="center"> 
     Rentx Cars - Server API 
