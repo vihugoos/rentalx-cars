@@ -170,8 +170,7 @@ Other than node.js and docker installed, no prerequisites are needed to install 
    ```
 4. Create avatar and cars folder
    ```cmd
-   mkdir tmp/avatar | 
-   mkdir tmp/cars 
+   mkdir tmp/avatar | mkdir tmp/cars 
    ```
 4. Create database services in docker containers 
    ```cmd
