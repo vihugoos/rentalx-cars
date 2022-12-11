@@ -1,10 +1,198 @@
+<div id="top"> </div>
+
 [![CI/CD](https://github.com/vihugoos/rentx-cars/actions/workflows/main.yml/badge.svg)](https://github.com/vihugoos/rentx-cars/actions/workflows/main.yml)
 [![codecov](https://codecov.io/gh/vihugoos/rentx-cars/branch/main/graph/badge.svg?token=NXUK7PXBKV)](https://codecov.io/gh/vihugoos/rentx-cars)
 
-## Rentx Cars - Requirements Documentation. 
 
-Application developed for car rental. 
+<!---- PROJECT LOGO ----> 
+<div align="center">
+    
+  <h2 align="center"> 
+    Rentx Cars - Server API 
+  </h2>
+  
+  <p align="center">
+    A complete RESTful API for car rentals, developed with Node.js <br/>
+    Explore <a href="https://nodejs.org/en/docs/">Node.js</a> docs &#187; <br/> <br/>
+    <a href="https://api-rentx.com/"> Deployment URL </a> &nbsp;•&nbsp;
+    <a href="https://github.com/vihugoos/rentx-cars/issues"> Report Bug </a> &nbsp;•&nbsp;
+    <a href="https://github.com/vihugoos/rentx-cars/issues"> Request Feature </a>
+  </p>
+</div>
 
+
+<!---- TABLE OF CONTENTS ----> 
+<details>
+  <summary> Table of Contents </summary>
+  <ol>
+    <li>
+      <a href="#about-the-project"> About The Project </a>
+      <ul>
+        <li><a href="#built-with"> Built With </a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started"> Getting Started </a>
+      <ul>
+        <li><a href="#prerequisites"> Prerequisites </a></li>
+        <li><a href="#installation"> Installation </a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#requirements-documentation"> Requirements Documentation </a>
+      <ul>
+        <li><a href="#cars-registration"> Cars Registration </a></li>
+        <li><a href="#car-listing"> Car Listing </a></li>
+        <li><a href="#car-category"> Car Category </a></li>
+        <li><a href="#car-specifications"> Car Specifications </a></li>
+        <li><a href="#car-images"> Car Images </a></li>
+        <li><a href="#car-rental-registration"> Car Rental Registration </a></li>
+        <li><a href="#car-devolution"> Car Devolution </a></li>
+        <li><a href="#users"> Users </a></li>
+        <li><a href="#user-password-recovery"> User Password Recovery </a></li>
+        <li><a href="#user-rentals-listing"> User Rentals Listing </a></li>
+      </ul>
+    </li>
+    <li><a href="#usage"> Usage </a></li>
+    <li><a href="#contributing"> Contributing </a></li>
+    <li><a href="#contact"> Contact </a></li>
+  </ol>
+</details>
+
+
+<!---- THE PROJECT ---->
+## About The Project 
+
+<img src="https://user-images.githubusercontent.com/44311634/206552225-a6c4db19-a7d1-46d2-8b4d-f38eb14d2fab.png" align="center" alt="Project Home Page">
+A complete RESTful API for car rentals, following SOLID principles and Clean Architecture, to be maintainable and scalable. As far as possible, concepts of high cohesion (function) and low coupling (data coupling) were applied, in addition to dependency injections, providers, database using docker and unit and integration tests using Jest. User avatar and car images stored in an AWS S3 bucket.
+
+
+### Built With 
+
+<div style="display: inline_block">
+    <!-- Icon Node.js --> 
+    <a href="https://nodejs.org/en/"> 
+      <img align="center" alt="Icon-Node.js" height="33" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"> 
+    </a> &nbsp;
+    <!-- Icon Yarn --> 
+    <a href="https://yarnpkg.com/"> 
+      <img align="center" alt="Icon-Yarn" height="33" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/yarn/yarn-original.svg"> 
+    </a> &nbsp;
+    <!-- Icon TypeScript --> 
+    <a href="https://www.typescriptlang.org/"> 
+      <img align="center" alt="Icon-TypeScript" height="33" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"> 
+    </a> &nbsp;
+    <!-- Icon Docker -->
+    <a href="https://www.docker.com/"> 
+      <img align="center" alt="Icon-Docker" height="53" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"> 
+    </a> &nbsp;
+    <!-- Icon PostgreSQL --> 
+    <a href="https://www.postgresql.org/"> 
+      <img align="center" alt="Icon-PostgreSQL" height="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-plain.svg"> 
+    </a> &nbsp;
+    <!-- Icon TypeORM --> 
+    <a href="https://typeorm.io/"> 
+      <img align="center" alt="Icon-TypeORM" height="46" src="https://user-images.githubusercontent.com/44311634/206829885-5dc2e3bc-7598-4a85-bebc-7b80a8136c60.png"> 
+    </a> &nbsp;
+    <!-- Icon Express --> 
+    <a href="https://expressjs.com/"> 
+      <img align="center" alt="Icon-Express" height="33" src="https://user-images.githubusercontent.com/44311634/178337147-61b1e696-b4ef-4f78-8151-c3fb2597050a.png"> 
+    </a> &nbsp;
+    <!-- Icon Jest --> 
+    <a href="https://jestjs.io/"> 
+      <img align="center" alt="Icon-Jest" height="31" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg"> 
+    </a> &nbsp;
+    <!-- Icon Babel --> 
+    <a href="https://babeljs.io/"> 
+      <img align="center" alt="Icon-Jest" height="58" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/babel/babel-original.svg"> 
+    </a> &nbsp;
+    <!-- Icon AWS --> 
+    <a href="https://aws.amazon.com/"> 
+      <img align="center" alt="Icon-Jest" height="38" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg"> 
+    </a> 
+</div>
+
+<br/>
+<br/>
+
+
+<!---- GETTING STARTED ----> 
+## Getting Started
+
+To get started, you need to have <strong>Node.js 18+</strong> installed on your machine, for more information visit <a href="https://nodejs.org/en/download/"> Node.js Downloads</a>. You will also need to have <strong>Docker</strong> and <strong>Docker Compose</strong> installed, for more information visit <a href="https://docs.docker.com/engine/install/">Docker Engine Install</a> and <a href="https://docs.docker.com/compose/install/linux/"> Docker Compose Plugin Install </a>. 
+
+<strong>Obs:</strong> This guide will only serve to run the project locally (development environment), initially based on linux systems.
+
+
+### Prerequisites 
+
+Other than node.js and docker installed, no prerequisites are needed to install the application.
+
+
+### Installation 
+
+1. Clone the repo 
+   ```bash
+   git clone https://github.com/vihugoos/rentx-cars.git
+   ```
+2. Inside the project root directory install all project dependencies 
+   ```cmd
+   yarn install
+   ```
+3. Create an `.env` file with environment variables for development (<i>copy all commands at once</i>)
+   
+   <strong>WARNING:</strong> Credentials are for testing purposes only, please change them in the future.
+   
+   ```bash
+   cat > .env << EOF
+   API_BASE_URL='http://localhost:3333' 
+   DISK_STORAGE=local 
+   MAIL_PROVIDER=ethereal 
+   ENVIRONMENT=dev 
+
+   DATABASE=rentx_test 
+   DATABASE_USERNAME=user_test 
+   DATABASE_PASSWORD=12345 
+   DATABASE_PASSWORD=6342 
+
+   REDIS_HOST=localhost 
+   REDIS_PORT=5385 
+
+   JWT_SECRET_TOKEN=ec9bb4116d5a4c0023a690343c7e64a1 
+   JWT_SECRET_REFRESH_TOKEN=056104641cb83398798c3f188a548040 
+   EOF
+   ```
+4. Create avatar and cars folder
+   ```cmd
+   mkdir tmp/avatar
+   mkdir tmp/cars 
+   ```
+4. Create database services in docker containers 
+   ```cmd
+   docker compose up -d
+   ```
+5. Run the migrate 
+   ```cmd
+   yarn typeorm migration:run 
+   ```
+
+
+<!---- USAGE EXAMPLES ----> 
+## Usage
+
+With the installation complete, we can start the project.
+
+* Starting the project 
+   ```bash
+   yarn run dev  
+   ```
+<br/> <br/>
+
+
+
+## Requirements Documentation 
+
+A complete application specification, with all functional and non-functional requirements and business rules.
 
 ### Cars Registration 
 
@@ -50,7 +238,7 @@ Application developed for car rental.
 ---
 
 
-### Car Specification 
+### Car Specifications 
 
 **RF** (<i>Functional Requirements</i>)
 - It must be possible to register a new specification for a car.
@@ -65,7 +253,7 @@ Application developed for car rental.
 ---
 
 
-### Car Image 
+### Car Images 
 
 **RF** (<i>Functional Requirements</i>)
 - It must be possible to register car image. 
@@ -147,10 +335,37 @@ Application developed for car rental.
 ---
 
 
-### User Rental Listing
+### User Rentals Listing
 
 **RF** (<i>Functional Requirements</i>)
 - It must be possible to search all rentals made by user. 
 
 **RN** (<i>Business Rules</i>)
 - The user must be logged into the application.
+
+<br/> <br/> 
+
+
+<!---- CONTRIBUTING ---->
+## Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<br/> 
+
+
+<!---- CONTACT ---->
+## Contact
+
+Developer @vihugoos - victorhugoos@live.com  
+
+<p align="right"><a href="#top"> &#129045; back to top </a></p> 
