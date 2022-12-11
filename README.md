@@ -207,7 +207,7 @@ To be able to run all the tests, follow the commands below:
    ```cmd
    psql -h localhost -p 6443 -U user_test -W rentx
    ```
-2. Run the query
+2. Run the query (create a database just for testing) 
    ```sql
    CREATE DATABASE rentx_test;
    ```
