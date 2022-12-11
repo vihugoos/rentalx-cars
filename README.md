@@ -54,6 +54,7 @@
       </ul>
     </li>
     <li><a href="#usage"> Usage </a></li>
+    <li><a href="#tests"> Tests </a></li>
     <li><a href="#contributing"> Contributing </a></li>
     <li><a href="#contact"> Contact </a></li>
   </ol>
@@ -193,6 +194,10 @@ With the installation complete, we can start the project.
 
 To be able to run all the tests, follow the commands below:
 
+1. Install PostgreSQL Client
+   ```bash
+   sudo apt-get install -y postgresql-client
+   ```
 1. Open and connect terminal-based front-end for PostgreSQL (password: 12345)
    ```cmd
    psql -h localhost -p 6443 -U user_test -W rentx
