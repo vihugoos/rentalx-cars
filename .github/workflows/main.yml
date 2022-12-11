@@ -48,19 +48,23 @@ jobs:
 
           - name: Create .env file
             run: |
-                touch .env
-                echo "API_BASE_URL='http://localhost:3333'" >> .env
-                echo "DISK_STORAGE=local" >> .env
-                echo "MAIL_PROVIDER=ethereal" >> .env
-                echo "ENVIRONMENT=dev" >> .env
-                echo "DATABASE=rentx_test" >> .env
-                echo "DATABASE_USERNAME=test_user" >> .env
-                echo "DATABASE_PASSWORD=password" >> .env
-                echo "DATABASE_PORT=5432" >> .env
-                echo "REDIS_HOST=localhost" >> .env
-                echo "REDIS_PORT=6379" >> .env
-                echo "JWT_SECRET_TOKEN=fec379f309217e47c304e237be824f75" >> .env
-                echo "JWT_SECRET_REFRESH_TOKEN=6f8818d507e2355e4b9fbb4356c03f16" >> .env
+                cat > .env << EOF
+                  API_BASE_URL='http://localhost:3333' 
+                  DISK_STORAGE=local 
+                  MAIL_PROVIDER=ethereal 
+                  ENVIRONMENT=dev 
+
+                  DATABASE=rentx_test
+                  DATABASE_USERNAME=test_user
+                  DATABASE_PASSWORD=password
+                  DATABASE_PORT=5432
+
+                  REDIS_HOST=localhost 
+                  REDIS_PORT=6379
+
+                  JWT_SECRET_TOKEN=fec379f309217e47c304e237be824f75 
+                  JWT_SECRET_REFRESH_TOKEN=6f8818d507e2355e4b9fbb4356c03f16 
+                EOF
 
           - name: Create avatar and cars folder 
             run: |
