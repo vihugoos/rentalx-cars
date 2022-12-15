@@ -228,7 +228,7 @@ To be able to run all the tests, follow the commands below:
 
 A complete and detailed documentation of the application in swagger. To view, visit [`api-rentx.com/api-docs/`](https://api-rentx.com/api-docs/)
 
-<img src="https://user-images.githubusercontent.com/44311634/207957445-2a72ba0e-06f2-4b49-ab64-0d4edb7663ea.jpg" align="center" alt="Swagger DOC">
+<img src="https://user-images.githubusercontent.com/44311634/207958316-ce76726d-7b4b-4c6a-b1ab-c94c188fbcf4.jpg" align="center" alt="Swagger DOC">
 
 <br/> <br/>
 
