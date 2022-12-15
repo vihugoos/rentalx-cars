@@ -1,13 +1,15 @@
 {
     "openapi": "3.0.0",
+
     "info": {
         "title": "Rentx Cars API Documentation",
-        "description": "This is a Rentx API for car rental. Below is documented all the features of the application.",
+        "description": "This is the Rentx API for car rentals. Below is documented in detail all the features of the application.",
         "version": "2.0.0",
         "contact": {
             "email": "victorhugoos@live.com"
         }
     },
+
     "tags": [
         {
             "name": "cars",
@@ -38,6 +40,7 @@
             "description": "Create and view car specifications"
         }
     ],
+
     "paths": {
         "/cars": {
             "post": {
@@ -52,16 +55,64 @@
                         "application/json": {
                             "schema": {
                                 "$ref": "#/definitions/Car"
+                            },
+                            "example": {
+                                "name": "Ferrari 488 Spider",
+                                "description": "Luxury sports",
+                                "daily_rate": 900,
+                                "license_plate": "FSW-2984",
+                                "fine_amount": 4000,
+                                "brand": "Ferrari",
+                                "category_id": "c17eb79c-3f04-42aa-b2ba-e1bb869b7241"
                             }
                         }
                     }
                 },
                 "responses": {
                     "201": {
-                        "description": "Created"
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "available": {
+                                            "type": "boolean"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "daily_rate": {
+                                            "type": "string"
+                                        },
+                                        "license_plate": {
+                                            "type": "string"
+                                        },
+                                        "fine_amount": {
+                                            "type": "string"
+                                        },
+                                        "brand": {
+                                            "type": "string"
+                                        },
+                                        "category_id": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     },
                     "400": {
-                        "description": "Category already exists"
+                        "description": "Car already exists!"
                     }
                 }
             }
@@ -106,8 +157,8 @@
                     }
                 },
                 "responses": {
-                    "201": {
-                        "description": "Created"
+                    "204": {
+                        "description": "No Content"
                     }
                 }
             },
@@ -163,8 +214,8 @@
         "/cars/available": {
             "get": {
                 "tags": ["cars"],
-                "summary": "List all available cars",
-                "description": "List all available cars.",
+                "summary": "List available cars",
+                "description": "List available cars.",
                 "parameters": [
                     {
                         "name": "type_filter",
@@ -440,10 +491,33 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Created"
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                        }
                     },
-                    "500": {
-                        "description": "Category already exists"
+                    "400": {
+                        "description": "Category already exists!"
                     }
                 }
             },
@@ -462,10 +536,16 @@
                                     "items": {
                                         "type": "object",
                                         "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
                                             "name": {
                                                 "type": "string"
                                             },
                                             "description": {
+                                                "type": "string"
+                                            },
+                                            "created_at": {
                                                 "type": "string"
                                             }
                                         }
@@ -503,8 +583,8 @@
                     }
                 },
                 "responses": {
-                    "201": {
-                        "description": "Created"
+                    "204": {
+                        "description": "No Content"
                     }
                 }
             }
@@ -530,9 +610,32 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Created"
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                        }
                     },
-                    "500": {
+                    "400": {
                         "description": "Specification already exists!"
                     }
                 }
@@ -555,10 +658,16 @@
                                     "items": {
                                         "type": "object",
                                         "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
                                             "name": {
                                                 "type": "string"
                                             },
                                             "description": {
+                                                "type": "string"
+                                            },
+                                            "created_at": {
                                                 "type": "string"
                                             }
                                         }
@@ -596,7 +705,33 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Success"
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "token": {
+                                            "type": "string"
+                                        },
+                                        "refresh_token": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     },
                     "400": {
                         "description": "Email or password incorrect!"
@@ -610,7 +745,7 @@
             "post": {
                 "tags": ["authentication"],
                 "summary": "Update the refresh-token",
-                "description": "Update the refresh-token.",
+                "description": "Update the refresh-token, accepted by `header`, `query` or `body`.",
                 "parameters": [
                     {
                         "name": "x-access-token",
@@ -643,20 +778,35 @@
                                 }
                             },
                             "example": {
-                                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzEwNDMsImV4cCI6MTY3MTEyN"
+                                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzEwNDMsImV4cCI6M"
                             }
                         }   
                     }   
                 },
                 "responses": {
                     "200": {
-                        "description": "Success"
-                    },
-                    "401": {
-                        "description": "Invalid token!"
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        },
+                                        "refresh_token": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     },
                     "400": {
                         "description": "Refresh token does not exists!"
+                    },
+                    "401": {
+                        "description": "Invalid token!"
                     }
                 }
             }
@@ -701,7 +851,7 @@
                         "description": "Success"
                     },
                     "400": {
-                        "description": "Token invalid! or Token is expired!"
+                        "description": "Token invalid! `or` Token is expired!"
                     }
                 }
             }
@@ -1156,6 +1306,7 @@
             }
         }
     },
+
     "definitions": {
         "Specification": {
             "type": "object",
@@ -1168,6 +1319,7 @@
                 }
             }
         },
+
         "Car": {
             "type": "object",
             "properties": {
@@ -1194,6 +1346,7 @@
                 }
             }
         },
+
         "User": {
             "type": "Object",
             "properties": {
@@ -1212,12 +1365,219 @@
             }
         }
     },
+
     "components": {
         "securitySchemes": {
             "bearerAuth": {
                 "type": "http",
                 "scheme": "bearer",
                 "bearerFormat": "JWT"
+            }
+        },
+        "schemas": {
+            "cars": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "daily_rate": {
+                        "type": "number"
+                    },
+                    "available": {
+                        "type": "boolean"
+                    },
+                    "license_plate": {
+                        "type": "string"
+                    },
+                    "fine_amount": {
+                        "type": "number"
+                    },
+                    "brand": {
+                        "type": "string"
+                    },
+                    "(FK) category_id": {
+                        "type": "uuid"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                }
+            },
+
+            "cars_image": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "uuid"
+                    },
+                    "(FK) car_id": {
+                        "type": "uuid"
+                    },
+                    "image_name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                }
+            },
+
+            "users": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "driver_license": {
+                        "type": "string"
+                    },
+                    "admin": {
+                        "type": "boolean"
+                    },
+                    "avatar": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                }
+            },
+
+            "users_tokens": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "uuid"
+                    },
+                    "refresh_token": {
+                        "type": "string"
+                    },
+                    "(FK) user_id": {
+                        "type": "uuid"
+                    },
+                    "expires_date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                }
+            },
+
+            "rentals": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "uuid"
+                    },
+                    "(FK) car_id": {
+                        "type": "uuid"
+                    },
+                    "(FK) user_id": {
+                        "type": "uuid"
+                    },
+                    "start_date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "expected_return_date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "total": {
+                        "type": "number"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                }
+            },
+
+            "categories": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                }
+            },
+
+            "specifications": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                }
+            },
+
+            "specifications_cars": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "uuid"
+                    },
+                    "(FK) car_id": {
+                        "type": "uuid"
+                    },
+                    "(FK) specification_id": {
+                        "type": "uuid"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                }
             }
         }
     }
