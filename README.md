@@ -37,8 +37,11 @@
       <ul>
         <li><a href="#prerequisites"> Prerequisites </a></li>
         <li><a href="#installation"> Installation </a></li>
+        <li><a href="#usage"> Usage </a></li>
+        <li><a href="#tests"> Tests </a></li>
       </ul>
     </li>
+    <li><a href="#api-documentation"> API Documentation </a></li>
     <li>
       <a href="#requirements-documentation"> Requirements Documentation </a>
       <ul>
@@ -54,8 +57,6 @@
         <li><a href="#user-rentals-listing"> User Rentals Listing </a></li>
       </ul>
     </li>
-    <li><a href="#usage"> Usage </a></li>
-    <li><a href="#tests"> Tests </a></li>
     <li><a href="#contributing"> Contributing </a></li>
     <li><a href="#contact"> Contact </a></li>
   </ol>
