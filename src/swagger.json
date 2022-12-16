@@ -21,7 +21,7 @@
         },
         {
             "name": "authentication",
-            "description": "Authenticate a user in the application"
+            "description": "Authenticate an user in the application"
         },
         {
             "name": "password",
@@ -46,7 +46,7 @@
             "post": {
                 "tags": ["cars"],
                 "summary": "Create a new car",
-                "description": "Create a new car.",
+                "description": "Create a new car. The user must be an administrator.",
                 "security": [ 
                     { "bearerAuth": [] } 
                 ],
@@ -123,7 +123,7 @@
             "post": {
                 "tags": ["cars"],
                 "summary": "Upload images to the car",
-                "description": "Upload images to the car.",
+                "description": "Upload images to the car. The user must be an administrator.",
                 "security": [
                     { "bearerAuth": [] }
                 ],
@@ -294,7 +294,7 @@
             "get": {
                 "tags": ["cars"],
                 "summary": "List all cars",
-                "description": "List all cars.",
+                "description": "List all cars. The user must be an administrator.",
                 "security": [
                     { "bearerAuth": [] }
                 ],
@@ -352,8 +352,8 @@
         "/cars/specifications/{car_id}": {
             "post": {
                 "tags": ["cars"],
-                "summary": "Create a new specification to the car",
-                "description": "Create a new specification to the car.",
+                "summary": "Create new specifications for the car",
+                "description": "Create new specifications for the car. The user must be an administrator.",
                 "security": [
                     { "bearerAuth": [] }
                 ],
@@ -464,7 +464,7 @@
             "post": {
                 "tags": ["categories"],
                 "summary": "Create new category",
-                "description": "Create a new car category.",
+                "description": "Create a new car category. The user must be an administrator.",
                 "security": [ 
                     { "bearerAuth": [] } 
                 ],
@@ -562,8 +562,8 @@
         "/categories/import": {
             "post": {
                 "tags": ["categories"],
-                "summary": "Upload a new category",
-                "description": "Upload a new category.",
+                "summary": "Upload a new categories (CSV)",
+                "description": "Upload a new categories. The user must be an administrator.",
                 "security": [ 
                     { "bearerAuth": [] } 
                 ],
@@ -594,8 +594,8 @@
         "/specifications": {
             "post": {
                 "tags": ["specifications"],
-                "summary": "Create a specification",
-                "description": "Create a new specification.",
+                "summary": "Create a new specification",
+                "description": "Create a new specification. The user must be an administrator.",
                 "security": [ 
                     { "bearerAuth": [] } 
                 ],
@@ -644,7 +644,7 @@
             "get": {
                 "tags": ["specifications"],
                 "summary": "List all specifications",
-                "description": "List all specifications.",
+                "description": "List all specifications. The user must be an administrator.",
                 "security": [ 
                     { "bearerAuth": [] } 
                 ],
@@ -685,7 +685,7 @@
             "post": {
                 "tags": ["authentication"],
                 "summary": "Authentication User",
-                "description": "Authentication User.",
+                "description": "Authentication User. The `token` expires in 24 hours, and the `refresh_token` expires in 15 days.",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -862,7 +862,7 @@
             "post": {
                 "tags": ["password"],
                 "summary": "Send an email to the user with password reset information",
-                "description": "Send an email to the user with password reset information.", 
+                "description": "Send an email to the user with password reset information. The `token` expires in 24 hours.", 
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1123,9 +1123,6 @@
                 "tags": ["users"],
                 "summary": "Create a new user",
                 "description": "Create a new user.",
-                "security": [ 
-                    { "bearerAuth": [] } 
-                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1182,7 +1179,7 @@
             "get": {
                 "tags": ["users"],
                 "summary": "List all users",
-                "description": "List all users.",
+                "description": "List all users. The user must be an administrator.",
                 "security": [
                     { "bearerAuth": [] }
                 ],
