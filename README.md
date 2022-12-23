@@ -67,7 +67,7 @@
 ## About The Project 
 
 <img src="https://user-images.githubusercontent.com/44311634/206552225-a6c4db19-a7d1-46d2-8b4d-f38eb14d2fab.png" align="center" alt="Project Home Page">
-A complete RESTful API for car rentals, following SOLID principles and Clean Architecture, to be maintainable and scalable. As far as possible, concepts of high cohesion (function) and low coupling (data coupling) were applied, in addition to dependency injections, providers, database using docker and unit and integration tests using Jest. User avatar and car images stored in an AWS S3 bucket.
+A complete RESTful API for car rentals, following SOLID principles and Clean Architecture, to be maintainable and scalable. As far as possible, concepts of high cohesion (function) and low coupling (data coupling) were applied, in addition to dependency injections, providers, database using docker, unit and integration tests using Jest, and the tests apply the in-memory database concept. Some patterns like Data mapper and DTO, were applied. User avatar and car images stored in an AWS S3 bucket.
 
 
 ### Built With 
