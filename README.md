@@ -2,6 +2,7 @@
 
 [![CI/CD](https://github.com/vihugoos/rentx-cars/actions/workflows/main.yml/badge.svg)](https://github.com/vihugoos/rentx-cars/actions/workflows/main.yml)
 [![codecov](https://codecov.io/gh/vihugoos/rentx-cars/branch/main/graph/badge.svg?token=NXUK7PXBKV)](https://codecov.io/gh/vihugoos/rentx-cars)
+<img alt="TypeScriptPercentage" src="https://img.shields.io/github/languages/top/vihugoos/rentx-cars">
 
 
 <!---- PROJECT LOGO ----> 
