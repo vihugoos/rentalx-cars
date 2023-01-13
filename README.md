@@ -206,7 +206,7 @@ To be able to run all the tests, follow the commands below:
    ```
 1. Open and connect terminal-based front-end for PostgreSQL (password: 12345)
    ```cmd
-   psql -h localhost -p 6443 -U user_test
+   psql -h localhost -p 6443 -U user_test -W rentx
    ```
 2. Run the query (create a database just for testing) 
    ```sql
