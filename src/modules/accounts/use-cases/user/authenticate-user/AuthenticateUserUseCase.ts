@@ -64,7 +64,7 @@ export class AuthenticateUserUseCase {
             refresh_token.expires_date
         );
 
-        const tokenReturn: IResponse = {
+        const tokenReturn = {
             user: {
                 name: user.name,
                 email: user.email,
@@ -95,7 +95,7 @@ export class AuthenticateUserUseCase {
             auth.expires_refresh_token_days
         );
 
-        const refresh_token: IRefreshToken = {
+        const refresh_token = {
             value,
             expires_date,
         };
