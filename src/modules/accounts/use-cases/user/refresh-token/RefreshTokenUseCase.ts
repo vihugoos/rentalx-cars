@@ -11,13 +11,18 @@ interface IPayload {
     email: string;
 }
 
-interface ITokenResponse {
+interface ITokensResponse {
     token: string;
     refresh_token: string;
 }
 
+interface IRefreshToken {
+    value: string;
+    expires_date: Date;
+}
+
 @injectable()
-class RefreshTokenUseCase {
+export class RefreshTokenUseCase {
     constructor(
         @inject("UsersTokensRepository")
         private usersTokensRepository: IUsersTokensRepository,
@@ -26,12 +31,8 @@ class RefreshTokenUseCase {
         private dateProvider: IDateProvider
     ) {}
 
-    async execute(token: string): Promise<ITokenResponse> {
-        try {
-            verify(token, auth.secret_refresh_token);
-        } catch {
-            throw new AppError("Invalid token!", 401);
-        }
+    async execute(token: string): Promise<ITokensResponse> {
+        this.validateIfTokenIsValid(token);
 
         const { email, sub } = verify(
             token,
@@ -52,8 +53,45 @@ class RefreshTokenUseCase {
 
         await this.usersTokensRepository.deleteById(userToken.id);
 
-        const refresh_token = sign({ email }, auth.secret_refresh_token, {
-            subject: sub,
+        const newToken = this.generateToken(email, user_id);
+
+        const newRefreshToken = this.generateRefreshToken(email, user_id);
+
+        this.saveRefreshToken(
+            user_id,
+            newRefreshToken.value,
+            newRefreshToken.expires_date
+        );
+
+        return {
+            token: newToken,
+            refresh_token: newRefreshToken.value,
+        };
+    }
+
+    private validateIfTokenIsValid(token: string) {
+        try {
+            verify(token, auth.secret_refresh_token);
+        } catch {
+            throw new AppError("Invalid token!", 401);
+        }
+    }
+
+    private generateToken(email: string, user_id: string): string {
+        const token = sign({ email }, auth.secret_token, {
+            subject: user_id,
+            expiresIn: auth.expires_in_token,
+        });
+
+        return token;
+    }
+
+    private generateRefreshToken(
+        email: string,
+        user_id: string
+    ): IRefreshToken {
+        const value = sign({ email }, auth.secret_refresh_token, {
+            subject: user_id,
             expiresIn: auth.expires_in_refresh_token,
         });
 
@@ -61,23 +99,23 @@ class RefreshTokenUseCase {
             auth.expires_refresh_token_days
         );
 
-        // To save a refresh_token in the database
+        const refresh_token = {
+            value,
+            expires_date,
+        };
+
+        return refresh_token;
+    }
+
+    private async saveRefreshToken(
+        user_id: string,
+        token: string,
+        expires_date: Date
+    ): Promise<void> {
         await this.usersTokensRepository.create({
             user_id,
-            refresh_token,
+            refresh_token: token,
             expires_date,
         });
-
-        const newToken = sign({}, auth.secret_token, {
-            subject: user_id,
-            expiresIn: auth.expires_in_token,
-        });
-
-        return {
-            token: newToken,
-            refresh_token,
-        };
     }
 }
-
-export { RefreshTokenUseCase };
