@@ -5,7 +5,7 @@ import { UserMap } from "@modules/accounts/mapper/UserMap";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 
 @injectable()
-class UserProfileUseCase {
+export class UserProfileUseCase {
     constructor(
         @inject("UsersRepository")
         private usersRepository: IUsersRepository
@@ -17,5 +17,3 @@ class UserProfileUseCase {
         return UserMap.toDTO(user);
     }
 }
-
-export { UserProfileUseCase };

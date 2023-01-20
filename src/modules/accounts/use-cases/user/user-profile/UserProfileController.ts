@@ -3,7 +3,7 @@ import { container } from "tsyringe";
 
 import { UserProfileUseCase } from "./UserProfileUseCase";
 
-class UserProfileController {
+export class UserProfileController {
     async handle(request: Request, response: Response): Promise<Response> {
         const { user_id } = request.user;
 
@@ -14,5 +14,3 @@ class UserProfileController {
         return response.json(user);
     }
 }
-
-export { UserProfileController };
