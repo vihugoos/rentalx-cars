@@ -4,7 +4,7 @@ import { IUser } from "@modules/accounts/entities/IUser";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 
 @injectable()
-class ListUsersUseCase {
+export class ListUsersUseCase {
     constructor(
         @inject("UsersRepository")
         private usersRepository: IUsersRepository
@@ -14,5 +14,3 @@ class ListUsersUseCase {
         return this.usersRepository.list();
     }
 }
-
-export { ListUsersUseCase };
