@@ -3,7 +3,7 @@ import { IUsersTokensRepository } from "@modules/accounts/repositories/IUsersTok
 
 import { UserTokens } from "../typeorm/entities/UserTokens";
 
-class UsersTokensRepositoryInMemory implements IUsersTokensRepository {
+export class UsersTokensRepositoryInMemory implements IUsersTokensRepository {
     usersTokens: UserTokens[] = [];
 
     async create({
@@ -49,5 +49,3 @@ class UsersTokensRepositoryInMemory implements IUsersTokensRepository {
         return userToken;
     }
 }
-
-export { UsersTokensRepositoryInMemory };
