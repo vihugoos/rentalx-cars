@@ -8,8 +8,13 @@ import { IDateProvider } from "@shared/container/providers/date-provider/IDatePr
 import { IMailProvider } from "@shared/container/providers/mail-provider/IMailProvider";
 import { AppError } from "@shared/errors/AppError";
 
+interface IToken {
+    value: string;
+    expires_date: Date;
+}
+
 @injectable()
-class SendForgotPasswordMailUseCase {
+export class SendForgotPasswordMailUseCase {
     constructor(
         @inject("UsersRepository")
         private usersRepository: IUsersRepository,
@@ -25,7 +30,17 @@ class SendForgotPasswordMailUseCase {
     ) {}
 
     async execute(email: string): Promise<void> {
-        const templatePath = resolve(
+        const user = await this.usersRepository.findByEmail(email);
+
+        if (!user) {
+            throw new AppError("User does not exists!");
+        }
+
+        const token = this.generateToken();
+
+        this.saveToken(user.id, token.value, token.expires_date);
+
+        const templateEmailPath = resolve(
             __dirname,
             "..",
             "..",
@@ -35,36 +50,40 @@ class SendForgotPasswordMailUseCase {
             "forgot-password.hbs"
         );
 
-        const user = await this.usersRepository.findByEmail(email);
-
-        if (!user) {
-            throw new AppError("User does not exists!");
-        }
-
-        const token = uuidV4();
-
-        const expires_date = this.dateProvider.todayAdd24Hours();
-
-        // To save a token in the database
-        await this.usersTokensRepository.create({
-            user_id: user.id,
-            refresh_token: token,
-            expires_date,
-        });
-
         const variables = {
             name: user.name,
             email: user.email,
-            link: `${process.env.API_BASE_URL}/password/reset?token=${token}`,
+            link: `${process.env.API_BASE_URL}/password/reset?token=${token.value}`,
         };
 
         await this.mailProvider.sendMail(
             email,
             "Password Recovery",
             variables,
-            templatePath
+            templateEmailPath
         );
     }
-}
 
-export { SendForgotPasswordMailUseCase };
+    private generateToken(): IToken {
+        const value = uuidV4();
+
+        const expires_date = this.dateProvider.todayAdd24Hours();
+
+        return {
+            value,
+            expires_date,
+        };
+    }
+
+    private async saveToken(
+        user_id: string,
+        token: string,
+        expires_date: Date
+    ): Promise<void> {
+        await this.usersTokensRepository.create({
+            user_id,
+            refresh_token: token,
+            expires_date,
+        });
+    }
+}
