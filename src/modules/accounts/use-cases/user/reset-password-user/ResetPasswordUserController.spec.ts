@@ -63,7 +63,7 @@ describe("Reset Password User Controller", () => {
 
         const passwordMatch = await compare("new_user_password", user.password);
 
-        expect(response.status).toBe(200);
+        expect(response.status).toBe(204);
         expect(passwordMatch).toBe(true);
     });
 });

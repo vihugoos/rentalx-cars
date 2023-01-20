@@ -69,7 +69,7 @@ describe("Reset Password User Use Case", () => {
                 token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1bkBsb3RhZGltLmlvIiwiaWF0IjoxNjY4Mjg2NTQ5LCJleHAiOjE2NzA4Nzg1NDksInN1YiI6IjVhMTQ4N2Q1LTQ0OTktNGQ2MS1hMzA3LTBkNzg1ZThmOGY3MCJ9.DVN1ntv3FYmocgES2wCsxL_FEjwGAbLdu32z4_MUao0",
                 password: "new_password",
             })
-        ).rejects.toEqual(new AppError("Token invalid!"));
+        ).rejects.toEqual(new AppError("Token does not exists!"));
     });
 
     it("Should not be able to reset the user's password with an expired token", async () => {

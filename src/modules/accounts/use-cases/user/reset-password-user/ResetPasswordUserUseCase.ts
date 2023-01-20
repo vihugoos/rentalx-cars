@@ -12,7 +12,7 @@ interface IRequest {
 }
 
 @injectable()
-class ResetPasswordUserUseCase {
+export class ResetPasswordUserUseCase {
     constructor(
         @inject("UsersTokensRepository")
         private usersTokensRepository: IUsersTokensRepository,
@@ -30,7 +30,7 @@ class ResetPasswordUserUseCase {
         );
 
         if (!userToken) {
-            throw new AppError("Token invalid!");
+            throw new AppError("Token does not exists!");
         }
 
         const tokenIsExpired = this.dateProvider.compareIfBefore(
@@ -51,5 +51,3 @@ class ResetPasswordUserUseCase {
         await this.usersTokensRepository.deleteById(userToken.id);
     }
 }
-
-export { ResetPasswordUserUseCase };
