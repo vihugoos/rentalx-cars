@@ -1,4 +1,4 @@
-interface IUser {
+export interface IUser {
     id: string;
     name: string;
     email: string;
@@ -9,5 +9,3 @@ interface IUser {
     avatar_url(): string;
     created_at: Date;
 }
-
-export { IUser };
