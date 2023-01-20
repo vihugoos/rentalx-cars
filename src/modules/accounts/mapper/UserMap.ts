@@ -3,7 +3,7 @@ import { instanceToInstance } from "class-transformer";
 import { IUserResponseDTO } from "@modules/accounts/dtos/IUserResponseDTO";
 import { IUser } from "@modules/accounts/entities/IUser";
 
-class UserMap {
+export class UserMap {
     static toDTO({
         id,
         name,
@@ -24,5 +24,3 @@ class UserMap {
         return user;
     }
 }
-
-export { UserMap };
