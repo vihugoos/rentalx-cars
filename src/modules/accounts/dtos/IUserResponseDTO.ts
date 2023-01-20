@@ -1,4 +1,4 @@
-interface IUserResponseDTO {
+export interface IUserResponseDTO {
     id: string;
     name: string;
     email: string;
@@ -6,5 +6,3 @@ interface IUserResponseDTO {
     driver_license: string;
     avatar_url(): string;
 }
-
-export { IUserResponseDTO };
