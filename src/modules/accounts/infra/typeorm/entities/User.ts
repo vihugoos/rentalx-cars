@@ -5,7 +5,7 @@ import { v4 as uuidV4 } from "uuid";
 import { IUser } from "@modules/accounts/entities/IUser";
 
 @Entity("users")
-class User implements IUser {
+export class User implements IUser {
     @PrimaryColumn()
     id: string;
 
@@ -52,5 +52,3 @@ class User implements IUser {
         this.id = uuidV4();
     }
 }
-
-export { User };

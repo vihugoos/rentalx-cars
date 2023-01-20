@@ -13,7 +13,7 @@ import { IUserTokens } from "@modules/accounts/entities/IUserTokens";
 import { User } from "./User";
 
 @Entity("users_tokens")
-class UserTokens implements IUserTokens {
+export class UserTokens implements IUserTokens {
     @PrimaryColumn()
     id: string;
 
@@ -37,5 +37,3 @@ class UserTokens implements IUserTokens {
         this.id = uuidV4();
     }
 }
-
-export { UserTokens };
