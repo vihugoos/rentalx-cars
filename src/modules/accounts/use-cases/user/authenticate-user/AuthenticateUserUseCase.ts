@@ -3,6 +3,7 @@ import { sign } from "jsonwebtoken";
 import { inject, injectable } from "tsyringe";
 
 import auth from "@config/auth";
+import { IUser } from "@modules/accounts/entities/IUser";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { IUsersTokensRepository } from "@modules/accounts/repositories/IUsersTokensRepository";
 import { IDateProvider } from "@shared/container/providers/date-provider/IDateProvider";
@@ -22,8 +23,13 @@ interface IResponse {
     refresh_token: string;
 }
 
+interface IRefreshToken {
+    value: string;
+    expires_date: Date;
+}
+
 @injectable()
-class AuthenticateUserUseCase {
+export class AuthenticateUserUseCase {
     constructor(
         @inject("UsersRepository")
         private usersRepository: IUsersRepository,
@@ -48,26 +54,15 @@ class AuthenticateUserUseCase {
             throw new AppError("Email or password incorrect.");
         }
 
-        const token = sign({}, auth.secret_token, {
-            subject: user.id,
-            expiresIn: auth.expires_in_token,
-        });
+        const token = this.generateToken(user);
 
-        const refresh_token = sign({ email }, auth.secret_refresh_token, {
-            subject: user.id,
-            expiresIn: auth.expires_in_refresh_token,
-        });
+        const refresh_token = this.generateRefreshToken(user);
 
-        const refresh_token_expires_date = this.dateProvider.addDays(
-            auth.expires_refresh_token_days
+        this.saveRefreshToken(
+            user.id,
+            refresh_token.value,
+            refresh_token.expires_date
         );
-
-        // To save a refresh_token in the database
-        await this.usersTokensRepository.create({
-            user_id: user.id,
-            refresh_token,
-            expires_date: refresh_token_expires_date,
-        });
 
         const tokenReturn: IResponse = {
             user: {
@@ -75,11 +70,48 @@ class AuthenticateUserUseCase {
                 email: user.email,
             },
             token,
-            refresh_token,
+            refresh_token: refresh_token.value,
         };
 
         return tokenReturn;
     }
-}
 
-export { AuthenticateUserUseCase };
+    private generateToken(user: IUser): string {
+        const token = sign({ email: user.email }, auth.secret_token, {
+            subject: user.id,
+            expiresIn: auth.expires_in_token,
+        });
+
+        return token;
+    }
+
+    private generateRefreshToken(user: IUser): IRefreshToken {
+        const value = sign({ email: user.email }, auth.secret_refresh_token, {
+            subject: user.id,
+            expiresIn: auth.expires_in_refresh_token,
+        });
+
+        const expires_date = this.dateProvider.addDays(
+            auth.expires_refresh_token_days
+        );
+
+        const refresh_token: IRefreshToken = {
+            value,
+            expires_date,
+        };
+
+        return refresh_token;
+    }
+
+    private async saveRefreshToken(
+        user_id: string,
+        token: string,
+        expires_date: Date
+    ): Promise<void> {
+        await this.usersTokensRepository.create({
+            user_id,
+            refresh_token: token,
+            expires_date,
+        });
+    }
+}

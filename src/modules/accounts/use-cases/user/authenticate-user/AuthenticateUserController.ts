@@ -3,7 +3,7 @@ import { container } from "tsyringe";
 
 import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
 
-class AuthenticateUserController {
+export class AuthenticateUserController {
     async handle(request: Request, response: Response): Promise<Response> {
         const { email, password } = request.body;
 
@@ -11,13 +11,11 @@ class AuthenticateUserController {
             AuthenticateUserUseCase
         );
 
-        const token = await authenticateUserUseCase.execute({
+        const auth = await authenticateUserUseCase.execute({
             email,
             password,
         });
 
-        return response.json(token);
+        return response.json(auth);
     }
 }
-
-export { AuthenticateUserController };
