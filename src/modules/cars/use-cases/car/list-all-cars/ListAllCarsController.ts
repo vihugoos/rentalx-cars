@@ -3,7 +3,7 @@ import { container } from "tsyringe";
 
 import { ListAllCarsUseCase } from "./ListAllCarsUseCase";
 
-class ListAllCarsController {
+export class ListAllCarsController {
     async handle(request: Request, response: Response): Promise<Response> {
         const listAllCarsUseCase = container.resolve(ListAllCarsUseCase);
 
@@ -12,5 +12,3 @@ class ListAllCarsController {
         return response.json(allCars);
     }
 }
-
-export { ListAllCarsController };
