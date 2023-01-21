@@ -1,4 +1,4 @@
-interface IRental {
+export interface IRental {
     id: string;
     car_id: string;
     user_id: string;
@@ -9,5 +9,3 @@ interface IRental {
     created_at: Date;
     updated_at: Date;
 }
-
-export { IRental };
