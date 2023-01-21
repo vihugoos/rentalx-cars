@@ -4,7 +4,7 @@ import { IRental } from "@modules/rentals/entities/IRental";
 import { IRentalsRepository } from "@modules/rentals/repositories/IRentalsRepository";
 
 @injectable()
-class ListRentalsByUserUseCase {
+export class ListRentalsByUserUseCase {
     constructor(
         @inject("RentalsRepository")
         private rentalsRepository: IRentalsRepository
@@ -16,5 +16,3 @@ class ListRentalsByUserUseCase {
         return rentalsByUser;
     }
 }
-
-export { ListRentalsByUserUseCase };
