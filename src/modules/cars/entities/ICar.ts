@@ -1,6 +1,6 @@
 import { ISpecification } from "./ISpecification";
 
-interface ICar {
+export interface ICar {
     id: string;
     name: string;
     description: string;
@@ -13,5 +13,3 @@ interface ICar {
     specifications: ISpecification[];
     created_at: Date;
 }
-
-export { ICar };
