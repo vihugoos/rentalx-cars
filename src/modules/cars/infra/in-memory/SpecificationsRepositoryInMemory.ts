@@ -2,7 +2,9 @@ import { ICreateSpecificationDTO } from "@modules/cars/dtos/ICreateSpecification
 import { Specification } from "@modules/cars/infra/typeorm/entities/Specification";
 import { ISpecificationsRepository } from "@modules/cars/repositories/ISpecificationsRepository";
 
-class SpecificationsRepositoryInMemory implements ISpecificationsRepository {
+export class SpecificationsRepositoryInMemory
+    implements ISpecificationsRepository
+{
     specifications: Specification[] = [];
 
     async create({
@@ -38,5 +40,3 @@ class SpecificationsRepositoryInMemory implements ISpecificationsRepository {
         return listSpecifications;
     }
 }
-
-export { SpecificationsRepositoryInMemory };
