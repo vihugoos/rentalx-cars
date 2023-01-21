@@ -1,7 +1,7 @@
 import { ICreateCarDTO } from "@modules/cars/dtos/ICreateCarDTO";
 import { ICar } from "@modules/cars/entities/ICar";
 
-interface ICarsRepository {
+export interface ICarsRepository {
     create(data: ICreateCarDTO): Promise<ICar>;
     findById(id: string): Promise<ICar>;
     findByLicensePlate(license_plate: string): Promise<ICar>;
@@ -10,5 +10,3 @@ interface ICarsRepository {
     updateAvailable(id: string, available: boolean): Promise<void>;
     list(): Promise<ICar[]>;
 }
-
-export { ICarsRepository };
