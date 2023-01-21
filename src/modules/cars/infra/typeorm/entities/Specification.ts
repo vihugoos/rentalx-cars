@@ -4,7 +4,7 @@ import { v4 as uuidV4 } from "uuid";
 import { ISpecification } from "@modules/cars/entities/ISpecification";
 
 @Entity("specifications")
-class Specification implements ISpecification {
+export class Specification implements ISpecification {
     @PrimaryColumn()
     id: string;
 
@@ -21,5 +21,3 @@ class Specification implements ISpecification {
         this.id = uuidV4();
     }
 }
-
-export { Specification };

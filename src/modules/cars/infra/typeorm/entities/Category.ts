@@ -4,7 +4,7 @@ import { v4 as uuidV4 } from "uuid";
 import { ICategory } from "@modules/cars/entities/ICategory";
 
 @Entity("categories")
-class Category implements ICategory {
+export class Category implements ICategory {
     @PrimaryColumn()
     id: string;
 
@@ -21,5 +21,3 @@ class Category implements ICategory {
         this.id = uuidV4();
     }
 }
-
-export { Category };

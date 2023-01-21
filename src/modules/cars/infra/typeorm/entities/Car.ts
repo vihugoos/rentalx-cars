@@ -16,7 +16,7 @@ import { Category } from "./Category";
 import { Specification } from "./Specification";
 
 @Entity("cars")
-class Car implements ICar {
+export class Car implements ICar {
     @PrimaryColumn()
     id: string;
 
@@ -64,5 +64,3 @@ class Car implements ICar {
         this.available = true;
     }
 }
-
-export { Car };

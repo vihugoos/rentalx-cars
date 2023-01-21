@@ -14,7 +14,7 @@ import { ICarImage } from "@modules/cars/entities/ICarImage";
 import { Car } from "./Car";
 
 @Entity("cars_image")
-class CarImage implements ICarImage {
+export class CarImage implements ICarImage {
     @PrimaryColumn()
     id: string;
 
@@ -53,5 +53,3 @@ class CarImage implements ICarImage {
         this.id = uuidV4();
     }
 }
-
-export { CarImage };
