@@ -3,7 +3,7 @@ import { container } from "tsyringe";
 
 import { CreateCarSpecificationsUseCase } from "./CreateCarSpecificationsUseCase";
 
-class CreateCarSpecificationsController {
+export class CreateCarSpecificationsController {
     async handle(request: Request, response: Response): Promise<Response> {
         const { car_id } = request.params;
         const { list_specifications_ids } = request.body;
@@ -20,5 +20,3 @@ class CreateCarSpecificationsController {
         return response.status(201).json(carSpecifications);
     }
 }
-
-export { CreateCarSpecificationsController };
