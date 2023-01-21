@@ -10,7 +10,7 @@ interface IRequest {
 }
 
 @injectable()
-class ListAvailableCarsUseCase {
+export class ListAvailableCarsUseCase {
     constructor(
         @inject("CarsRepository")
         private carsRepository: ICarsRepository
@@ -31,5 +31,3 @@ class ListAvailableCarsUseCase {
         return listCarsAvailable;
     }
 }
-
-export { ListAvailableCarsUseCase };

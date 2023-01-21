@@ -3,7 +3,7 @@ import { container } from "tsyringe";
 
 import { ListAvailableCarsUseCase } from "@modules/cars/use-cases/car/list-available-cars/ListAvailableCarsUseCase";
 
-class ListAvailableCarsController {
+export class ListAvailableCarsController {
     async handle(request: Request, response: Response): Promise<Response> {
         const { type_filter, value } = request.query;
 
@@ -19,5 +19,3 @@ class ListAvailableCarsController {
         return response.json(cars);
     }
 }
-
-export { ListAvailableCarsController };
