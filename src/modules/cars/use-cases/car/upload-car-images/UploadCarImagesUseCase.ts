@@ -9,7 +9,7 @@ interface IRequest {
 }
 
 @injectable()
-class UploadCarImagesUseCase {
+export class UploadCarImagesUseCase {
     constructor(
         @inject("CarsImagesRepository")
         private carsImagesRepository: ICarsImagesRepository,
@@ -19,29 +19,32 @@ class UploadCarImagesUseCase {
     ) {}
 
     async execute({ car_id, list_images_name }: IRequest): Promise<void> {
-        // Delete car images from temp/cars local directory or from AWS S3
-        await this.carsImagesRepository
-            .filterImagesByCarId(car_id)
-            .then((car_images) => {
-                if (car_images) {
-                    car_images.map(async (car_image) => {
-                        await this.storageProvider.delete(
-                            car_image.image_name,
-                            "cars"
-                        );
-                    });
-                }
-            });
+        await this.deleteImagesFromTmpDirectoryOrBucketS3(car_id);
 
-        // Delete car images from database
         await this.carsImagesRepository.deleteImagesByCarId(car_id);
 
-        // Upload new images to the car
+        await this.uploadNewImages(car_id, list_images_name);
+    }
+
+    private async deleteImagesFromTmpDirectoryOrBucketS3(
+        car_id: string
+    ): Promise<void> {
+        const car_images = await this.carsImagesRepository.filterImagesByCarId(
+            car_id
+        );
+
+        car_images.map(async (car_image) => {
+            await this.storageProvider.delete(car_image.image_name, "cars");
+        });
+    }
+
+    private async uploadNewImages(
+        car_id: string,
+        list_images_name: string[]
+    ): Promise<void> {
         list_images_name.map(async (image) => {
             await this.storageProvider.save(image, "cars");
             await this.carsImagesRepository.create(car_id, image);
         });
     }
 }
-
-export { UploadCarImagesUseCase };

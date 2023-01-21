@@ -104,7 +104,7 @@ describe("Upload Car Images Controller", () => {
                 Authorization: `Bearer ${token}`,
             });
 
-        // Upload images for the car (test UploadCarImagesController)
+        // Upload again images for the car (test UploadCarImagesController)
         const response = await request(app)
             .post(`/cars/images/${car.id}`)
             .attach("images", ferrari_488_spider_1_path)
