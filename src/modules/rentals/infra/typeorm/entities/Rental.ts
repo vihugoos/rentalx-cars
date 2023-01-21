@@ -13,7 +13,7 @@ import { Car } from "@modules/cars/infra/typeorm/entities/Car";
 import { IRental } from "@modules/rentals/entities/IRental";
 
 @Entity("rentals")
-class Rental implements IRental {
+export class Rental implements IRental {
     @PrimaryColumn()
     id: string;
 
@@ -49,5 +49,3 @@ class Rental implements IRental {
         this.id = uuidV4();
     }
 }
-
-export { Rental };
