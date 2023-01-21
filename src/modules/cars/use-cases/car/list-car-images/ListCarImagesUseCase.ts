@@ -5,7 +5,7 @@ import { CarImageMap } from "@modules/cars/mapper/CarImageMap";
 import { ICarsImagesRepository } from "@modules/cars/repositories/ICarsImagesRepository";
 
 @injectable()
-class ListCarImagesUseCase {
+export class ListCarImagesUseCase {
     constructor(
         @inject("CarsImagesRepository")
         private carsImagesRepository: ICarsImagesRepository
@@ -23,5 +23,3 @@ class ListCarImagesUseCase {
         return listCarImages;
     }
 }
-
-export { ListCarImagesUseCase };
