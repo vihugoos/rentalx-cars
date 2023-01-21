@@ -11,13 +11,12 @@ import * as Tracing from "@sentry/tracing";
 import "@shared/container";
 import { AppError } from "@shared/errors/AppError";
 import rateLimiterMiddleware from "@shared/infra/http/middlewares/rateLimiter";
-import createConnection from "@shared/infra/typeorm";
+import createDatabaseConnection from "@shared/infra/typeorm";
 
 import swaggerFile from "../../../swagger.json";
 import { routers } from "./routes";
 
-// Create database connection
-createConnection();
+createDatabaseConnection();
 
 const app = express();
 
