@@ -7,7 +7,7 @@ import upload from "@config/upload-file";
 
 import { IStorageProvider } from "../IStorageProvider";
 
-class S3StorageProvider implements IStorageProvider {
+export class S3StorageProvider implements IStorageProvider {
     private client: S3;
 
     constructor() {
@@ -47,5 +47,3 @@ class S3StorageProvider implements IStorageProvider {
             .promise();
     }
 }
-
-export { S3StorageProvider };
