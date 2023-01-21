@@ -10,14 +10,31 @@ interface IImportCategory {
 }
 
 @injectable()
-class ImportCategoriesUseCase {
+export class ImportCategoriesUseCase {
     constructor(
         @inject("CategoriesRepository")
         private categoriesRepository: ICategoriesRepository
     ) {}
 
-    // example: SUV,Sports Utility
-    loadCategories(file: Express.Multer.File): Promise<IImportCategory[]> {
+    async execute(file: Express.Multer.File): Promise<void> {
+        const categories = await this.loadCategories(file);
+
+        categories.map(async (category) => {
+            const { name, description } = category;
+
+            const existCategory = await this.categoriesRepository.findByName(
+                name
+            );
+
+            if (!existCategory) {
+                await this.categoriesRepository.create({ name, description });
+            }
+        });
+    }
+
+    private loadCategories(
+        file: Express.Multer.File
+    ): Promise<IImportCategory[]> {
         return new Promise((resolve) => {
             const categories: IImportCategory[] = [];
 
@@ -40,22 +57,4 @@ class ImportCategoriesUseCase {
                 });
         });
     }
-
-    async execute(file: Express.Multer.File): Promise<void> {
-        const categories = await this.loadCategories(file);
-
-        categories.map(async (category) => {
-            const { name, description } = category;
-
-            const existCategory = await this.categoriesRepository.findByName(
-                name
-            );
-
-            if (!existCategory) {
-                await this.categoriesRepository.create({ name, description });
-            }
-        });
-    }
 }
-
-export { ImportCategoriesUseCase };

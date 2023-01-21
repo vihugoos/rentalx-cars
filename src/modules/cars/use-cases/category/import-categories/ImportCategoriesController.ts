@@ -3,7 +3,7 @@ import { container } from "tsyringe";
 
 import { ImportCategoriesUseCase } from "./ImportCategoriesUseCase";
 
-class ImportCategoriesController {
+export class ImportCategoriesController {
     async handle(request: Request, response: Response) {
         const { file } = request;
 
@@ -19,5 +19,3 @@ class ImportCategoriesController {
         }, 3000);
     }
 }
-
-export { ImportCategoriesController };
