@@ -3,7 +3,7 @@ import { getRepository, Repository } from "typeorm";
 import { CarImage } from "@modules/cars/infra/typeorm/entities/CarImage";
 import { ICarsImagesRepository } from "@modules/cars/repositories/ICarsImagesRepository";
 
-class CarsImagesRepository implements ICarsImagesRepository {
+export class CarsImagesRepository implements ICarsImagesRepository {
     private repository: Repository<CarImage>;
 
     constructor() {
@@ -38,5 +38,3 @@ class CarsImagesRepository implements ICarsImagesRepository {
         );
     }
 }
-
-export { CarsImagesRepository };

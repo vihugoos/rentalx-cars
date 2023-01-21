@@ -4,7 +4,7 @@ import { ICreateSpecificationDTO } from "@modules/cars/dtos/ICreateSpecification
 import { Specification } from "@modules/cars/infra/typeorm/entities/Specification";
 import { ISpecificationsRepository } from "@modules/cars/repositories/ISpecificationsRepository";
 
-class SpecificationsRepository implements ISpecificationsRepository {
+export class SpecificationsRepository implements ISpecificationsRepository {
     private repository: Repository<Specification>;
 
     constructor() {
@@ -37,5 +37,3 @@ class SpecificationsRepository implements ISpecificationsRepository {
         return this.repository.findByIds(ids);
     }
 }
-
-export { SpecificationsRepository };

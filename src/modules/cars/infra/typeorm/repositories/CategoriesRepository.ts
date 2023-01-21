@@ -4,7 +4,7 @@ import { ICreateCategoryDTO } from "@modules/cars/dtos/ICreateCategoryDTO";
 import { Category } from "@modules/cars/infra/typeorm/entities/Category";
 import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
 
-class CategoriesRepository implements ICategoriesRepository {
+export class CategoriesRepository implements ICategoriesRepository {
     private repository: Repository<Category>;
 
     constructor() {
@@ -30,5 +30,3 @@ class CategoriesRepository implements ICategoriesRepository {
         return this.repository.findOne({ name });
     }
 }
-
-export { CategoriesRepository };
