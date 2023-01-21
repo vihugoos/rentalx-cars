@@ -4,7 +4,7 @@ import { ISpecification } from "@modules/cars/entities/ISpecification";
 import { ISpecificationsRepository } from "@modules/cars/repositories/ISpecificationsRepository";
 
 @injectable()
-class ListSpecificationsUseCase {
+export class ListSpecificationsUseCase {
     constructor(
         @inject("SpecificationsRepository")
         private specificationsRepository: ISpecificationsRepository
@@ -14,5 +14,3 @@ class ListSpecificationsUseCase {
         return this.specificationsRepository.list();
     }
 }
-
-export { ListSpecificationsUseCase };
