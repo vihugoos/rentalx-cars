@@ -2,7 +2,7 @@ import { ICreateRentalDTO } from "@modules/rentals/dtos/ICreateRentalDTO";
 import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 import { IRentalsRepository } from "@modules/rentals/repositories/IRentalsRepository";
 
-class RentalsRepositoryInMemory implements IRentalsRepository {
+export class RentalsRepositoryInMemory implements IRentalsRepository {
     rentals: Rental[] = [];
 
     async create({
@@ -54,5 +54,3 @@ class RentalsRepositoryInMemory implements IRentalsRepository {
         return this.rentals.filter((rental) => rental.user_id === user_id);
     }
 }
-
-export { RentalsRepositoryInMemory };
