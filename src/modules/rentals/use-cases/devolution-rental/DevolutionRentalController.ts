@@ -3,7 +3,7 @@ import { container } from "tsyringe";
 
 import { DevolutionRentalUseCase } from "./DevolutionRentalUseCase";
 
-class DevolutionRentalController {
+export class DevolutionRentalController {
     async handle(request: Request, response: Response): Promise<Response> {
         const { rental_id } = request.params;
 
@@ -16,5 +16,3 @@ class DevolutionRentalController {
         return response.json(rental);
     }
 }
-
-export { DevolutionRentalController };
