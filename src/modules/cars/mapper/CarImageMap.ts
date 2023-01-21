@@ -3,7 +3,7 @@ import { instanceToInstance } from "class-transformer";
 import { ICarImageResponseDTO } from "@modules/cars/dtos/ICarImageResponseDTO";
 import { ICarImage } from "@modules/cars/entities/ICarImage";
 
-class CarImageMap {
+export class CarImageMap {
     static toDTO({
         id,
         car_id,
@@ -20,5 +20,3 @@ class CarImageMap {
         return carImage;
     }
 }
-
-export { CarImageMap };
