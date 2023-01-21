@@ -10,7 +10,7 @@ interface IRequest {
 }
 
 @injectable()
-class CreateSpecificationUseCase {
+export class CreateSpecificationUseCase {
     constructor(
         @inject("SpecificationsRepository")
         private specificationsRepository: ISpecificationsRepository
@@ -32,5 +32,3 @@ class CreateSpecificationUseCase {
         return specification;
     }
 }
-
-export { CreateSpecificationUseCase };
