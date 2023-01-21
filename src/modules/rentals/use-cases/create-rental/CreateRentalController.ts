@@ -3,7 +3,7 @@ import { container } from "tsyringe";
 
 import { CreateRentalUseCase } from "./CreateRentalUseCase";
 
-class CreateRentalController {
+export class CreateRentalController {
     async handle(request: Request, response: Response): Promise<Response> {
         const { car_id, expected_return_date } = request.body;
         const { user_id } = request.user;
@@ -19,5 +19,3 @@ class CreateRentalController {
         return response.status(201).json(rental);
     }
 }
-
-export { CreateRentalController };

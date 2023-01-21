@@ -12,7 +12,7 @@ interface IRequest {
     expected_return_date: Date;
 }
 @injectable()
-class CreateRentalUseCase {
+export class CreateRentalUseCase {
     constructor(
         @inject("RentalsRepository")
         private rentalsRepository: IRentalsRepository,
@@ -29,8 +29,6 @@ class CreateRentalUseCase {
         car_id,
         expected_return_date,
     }: IRequest): Promise<IRental> {
-        const minimumHour = 24;
-
         const carExists = await this.carsRepository.findById(car_id);
 
         if (!carExists) {
@@ -52,18 +50,7 @@ class CreateRentalUseCase {
             throw new AppError("There's a rental in progress for user!");
         }
 
-        const dateNow = this.dateProvider.dateNow();
-
-        const diff = this.dateProvider.diffInHours(
-            expected_return_date,
-            dateNow
-        );
-
-        if (diff < minimumHour) {
-            throw new AppError(
-                `Expected return date less than ${minimumHour} hours!`
-            );
-        }
+        this.validateExpectedReturnDate(expected_return_date);
 
         const rental = await this.rentalsRepository.create({
             user_id,
@@ -75,6 +62,21 @@ class CreateRentalUseCase {
 
         return rental;
     }
-}
 
-export { CreateRentalUseCase };
+    private validateExpectedReturnDate(expected_return_date: Date): void {
+        const MINIMUM_HOUR = 24;
+
+        const dateNow = this.dateProvider.dateNow();
+
+        const diff = this.dateProvider.diffInHours(
+            expected_return_date,
+            dateNow
+        );
+
+        if (diff < MINIMUM_HOUR) {
+            throw new AppError(
+                `Expected return date less than ${MINIMUM_HOUR} hours!`
+            );
+        }
+    }
+}
